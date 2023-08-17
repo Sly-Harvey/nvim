@@ -2,6 +2,9 @@
 
 **This is my cool neovim configuration written in 100% lua 👌**
 
+<img src="images/neovim1.png" width=800>
+<img src="images/neovim2.png" width=800>
+
 **To install on windows, delete your nvim folder in %USERPROFILE%\appdata\local\ if you have one there. Then run: git clone https://github.com/Sly-Harvey/nvim.git "%USERPROFILE%\appdata\local\nvim"**
 **Change the output path as needed. It will most likely be different on macos and linux.**
 **also if you are using a terminal with neovim such as powershell, command prompt or any other terminal emulator, then download a nerd font.**
@@ -11,10 +14,4 @@
 
 **All Keymaps can be found in lua\core\keymaps.lua**
 
-**Now you should be set up. some pictures of the config are below :)**
-
-**this is what the config looks like**
-<img src="images/neovim1.png" width=800>
-
-**you can open the terminal with Alt+F**
-<img src="images/neovim2.png" width=800>
+**Now you should be set up, have fun programming :)**
