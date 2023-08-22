@@ -4,4 +4,3 @@ require("core.theme-config")
 require("core.options")
 require("core.custom-commands")
 require("core.keymaps")
-
