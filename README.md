@@ -15,7 +15,7 @@ mkdir %homepath%\appdata\local\nvim & rmdir /S /Q %homepath%\appdata\local\nvim 
 
 **To install on Linux/Mac, open terminal and then run the command below**
 ```command
-mkdir ~/.config/nvim & rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
+rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
 ```
 
 **All Keymaps can be found in lua\core\keymaps.lua**
