@@ -53,6 +53,7 @@ local plugins = {
   },
   { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
   {'akinsho/bufferline.nvim', version = "*", lazy = true, dependencies = 'nvim-tree/nvim-web-devicons'},
+  {"dnlhc/glance.nvim", event = "BufReadPre"},
   'folke/neodev.nvim',
   'nmac427/guess-indent.nvim',
   'numToStr/FTerm.nvim',
@@ -97,11 +98,12 @@ local plugins = {
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
+    event = "InsertEnter",
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-      'rafamadriz/friendly-snippets',
+      --'rafamadriz/friendly-snippets',
       -- 'github/copilot.vim',
     },
   },

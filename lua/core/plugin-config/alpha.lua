@@ -24,7 +24,8 @@ if package.config:sub(1,1) == '\\' then
         dashboard.button("nf", "  New file", ":ene <BAR> startinsert <CR>"),
         dashboard.button("rf", "  Recently used files", ":Telescope oldfiles <CR>"),
         dashboard.button("fg", "  Live grep", ":Telescope live_grep <CR>"),
-        dashboard.button("cf", "  Configuration", ":e " .. os.getenv("homepath") .. "\\appdata\\local\\nvim<CR>"),
+        dashboard.button("cf", "  Configuration", ":e " .. "~\\appdata\\local\\nvim<CR>"),
+        --dashboard.button("cf", "  Configuration", ":e " .. os.getenv("homepath") .. "\\appdata\\local\\nvim<CR>"),
         dashboard.button("qn", "  Quit Neovim", ":qa<CR>"),
     }
 -- check if the currunt operating system is unix

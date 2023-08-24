@@ -30,6 +30,13 @@ keymap('n', '<M-F5>', '<CMD>CargoRunRelease<CR>')
 keymap('n', '<leader>fb', '<CMD>Telescope buffers<CR>')
 keymap('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
 
+-- Glance
+-- Lua
+keymap('n', 'gd', '<CMD>Glance definitions<CR>')
+keymap('n', 'gr', '<CMD>Glance references<CR>')
+keymap('n', 'gtd', '<CMD>Glance type_definitions<CR>')
+keymap('n', 'gi', '<CMD>Glance implementations<CR>')
+
 ---------------------------------------------------------
 
 -- Normal --
