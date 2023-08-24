@@ -1,6 +1,6 @@
 #  My neovim configuration
 
-**This is my cool neovim configuration written in 100% lua 👌**
+**This is my cool neovim configuration written in 100% lua**
 
 <img src="images/neovim1.png" width=800>
 <img src="images/neovim2.png" width=800>
@@ -17,7 +17,13 @@ mkdir %homepath%\appdata\local\nvim & rmdir /S /Q %homepath%\appdata\local\nvim 
 ```command
 rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
 ```
+## After installation
+open neovim and run the command :Mason
+This will open the Mason menu. Here you can install lsp servers which are required for language support such as auto completions.
+You can install an lsp by highlighting an lsp from the list and press "i" to install it.
+For example if i program in rust then i would want to install the "rust-analyzer" lsp server.
+"clangd" for C++, "Pyright" for python etc.
+And if you are unsure which lsp to install, you can find the best one for the language that you use with a google search.
+An extra tip if you want to uninstall an lsp you can run the command MasonUninstall (lsp name)
 
-**All Keymaps can be found in lua\core\keymaps.lua**
-
-**Now you should be set up, have fun programming :)**
+**Hope you enjoy my configuration.**
