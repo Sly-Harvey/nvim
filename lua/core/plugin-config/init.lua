@@ -1,7 +1,6 @@
 require("core.plugin-config.alpha")
-require("core.plugin-config.mason")
-require("core.plugin-config.languages")
 require("core.plugin-config.lsp-config")
+require("core.plugin-config.languages")
 require("core.plugin-config.completions")
 require("core.plugin-config.nvim-tree")
 require("core.plugin-config.treesitter")
