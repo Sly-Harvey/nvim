@@ -14,9 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- 'user/repo'
   -- Themes
+  { 'Mofiqul/vscode.nvim', priority = 1000, lazy = false },
   { "catppuccin/nvim", name = "catppuccin", lazy =true },
   { 'folke/tokyonight.nvim', lazy = true },
-  { 'Mofiqul/vscode.nvim', priority = 1000, lazy = true },
   { 'navarasu/onedark.nvim', lazy = true },
   { 'ellisonleao/gruvbox.nvim', lazy = true },
 
@@ -92,6 +92,8 @@ local plugins = {
   -- Language server protocol
   {
     'neovim/nvim-lspconfig',
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     dependencies = {
       {
         'williamboman/mason.nvim',

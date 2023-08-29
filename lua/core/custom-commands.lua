@@ -1,5 +1,6 @@
 -- Cargo Clean
 vim.api.nvim_create_user_command('CargoClean', function()
+    require('FTerm').run({'cls'})
     require('FTerm').run({'cargo', 'clean'})
 end, { bang = true })
 

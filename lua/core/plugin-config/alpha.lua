@@ -30,6 +30,7 @@ if system == windows then
         dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
         dashboard.button("cf", "  Configuration", ":e " .. "~\\appdata\\local\\nvim<CR>"),
         --dashboard.button("cf", "  Configuration", ":e " .. os.getenv("homepath") .. "\\appdata\\local\\nvim<CR>"),
+        dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
         dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
     }
 -- check if the currunt operating system is unix
@@ -40,6 +41,7 @@ elseif system == unix then
         dashboard.button("rf", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
         dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
         dashboard.button("cf", "  Configuration", ":e " .. "~/.config/nvim<CR>"),
+        dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
         dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
     }
 end
