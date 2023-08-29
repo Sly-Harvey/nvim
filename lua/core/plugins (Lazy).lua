@@ -33,38 +33,21 @@ local plugins = {
     dependencies = { {'nvim-lua/plenary.nvim'} }
   },
   {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-      ts_config = { java = false },
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-        offset = 0,
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "PmenuSel",
-        highlight_grey = "LineNr",
-      },
-    },
+    "nvim-treesitter/nvim-treesitter",
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
   },
   { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
   {'akinsho/bufferline.nvim', version = "*", lazy = true, dependencies = 'nvim-tree/nvim-web-devicons'},
   {"dnlhc/glance.nvim", event = "BufReadPre"},
   'folke/neodev.nvim',
-  'nmac427/guess-indent.nvim',
   'numToStr/FTerm.nvim',
-  'nvim-tree/nvim-tree.lua',
-  'nvim-treesitter/nvim-treesitter',
-  'lukas-reineke/indent-blankline.nvim',
+  {'nvim-tree/nvim-tree.lua', cmd = { "NvimTreeToggle", "NvimTreeFocus" }},
   'nvim-lualine/lualine.nvim',
   'tpope/vim-sleuth',
   
 
-  -- Display keymaps
+  --Display keymaps
   --{
   --  "folke/which-key.nvim",
   --  event = "VeryLazy",
@@ -76,9 +59,32 @@ local plugins = {
   --},
   
   -- Git
-  'lewis6991/gitsigns.nvim',
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  -- git stuff
+  {
+    "lewis6991/gitsigns.nvim",
+    ft = { "gitcommit", "diff" },
+    dependencies = {
+      'lewis6991/gitsigns.nvim',
+      'tpope/vim-fugitive',
+      'tpope/vim-rhubarb',
+    },
+    init = function()
+      -- load gitsigns only when a git file is opened
+      vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+        callback = function()
+          vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
+          if vim.v.shell_error == 0 then
+            vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+            vim.schedule(function()
+              require("lazy").load { plugins = { "gitsigns.nvim" } }
+            end)
+          end
+        end,
+      })
+    end,
+  },
+  
 
   -- Languages
   'simrat39/rust-tools.nvim',
@@ -87,7 +93,10 @@ local plugins = {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },
+      {
+        'williamboman/mason.nvim',
+        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+      },
       'williamboman/mason-lspconfig.nvim',
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
       'glepnir/lspsaga.nvim',
@@ -100,11 +109,33 @@ local plugins = {
     'hrsh7th/nvim-cmp',
     event = "InsertEnter",
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'L3MON4D3/LuaSnip',
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = "rafamadriz/friendly-snippets",
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+      },
+      {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "TelescopePrompt", "vim" },
+        },
+        config = function(_, opts)
+          require("nvim-autopairs").setup(opts)
+
+          -- setup cmp for autopairs
+          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+      },
+      'lukas-reineke/indent-blankline.nvim',
+      'nmac427/guess-indent.nvim',
       'saadparwaiz1/cmp_luasnip',
-      --'rafamadriz/friendly-snippets',
-      -- 'github/copilot.vim',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
     },
   },
 }
