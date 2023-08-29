@@ -17,25 +17,28 @@ local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 
 -- Fterm
-keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>')
-keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- Cargo hotkeys
-keymap('n', '<C-M-F2>', '<CMD>CargoBuildDebug<CR>')
-keymap('n', '<C-M-F3>', '<CMD>CargoBuildRelease<CR>')
-keymap('n', '<C-M-F4>', '<CMD>CargoRunDebug<CR>')
-keymap('n', '<C-M-F5>', '<CMD>CargoRunRelease<CR>')
+keymap('n', '<C-M-F2>', '<CMD>CargoBuildDebug<CR>', opts)
+keymap('n', '<C-M-F3>', '<CMD>CargoBuildRelease<CR>', opts)
+keymap('n', '<C-M-F4>', '<CMD>CargoRunDebug<CR>', opts)
+keymap('n', '<C-M-F5>', '<CMD>CargoRunRelease<CR>', opts)
+keymap('n', '<C-M-F6>', '<CMD>CargoClean<CR>', opts)
 
 -- Telescope
-keymap('n', '<leader>fb', '<CMD>Telescope buffers<CR>')
-keymap('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
+keymap('n', '<leader>fb', '<CMD>Telescope buffers<CR>', opts)
+keymap('n', '<leader>ff', '<CMD>Telescope find_files<CR>', opts)
+keymap('n', '<leader>fg', '<CMD>Telescope live_grep<CR>', opts)
+keymap('n', '<leader>fh', '<CMD>Telescope help_tags<CR>', opts)
+keymap('n', '<leader>fo', '<CMD>Telescope oldfiles<CR>', opts)
 
 -- Glance
--- Lua
-keymap('n', 'gd', '<CMD>Glance definitions<CR>')
-keymap('n', 'gr', '<CMD>Glance references<CR>')
-keymap('n', 'gtd', '<CMD>Glance type_definitions<CR>')
-keymap('n', 'gi', '<CMD>Glance implementations<CR>')
+keymap('n', 'gd', '<CMD>Glance definitions<CR>', opts)
+keymap('n', 'gr', '<CMD>Glance references<CR>', opts)
+keymap('n', 'gtd', '<CMD>Glance type_definitions<CR>', opts)
+keymap('n', 'gi', '<CMD>Glance implementations<CR>', opts)
 
 ---------------------------------------------------------
 
