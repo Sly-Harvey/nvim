@@ -14,9 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- 'user/repo'
   -- Themes
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000, lazy =false },
+  { "catppuccin/nvim", name = "catppuccin", lazy =true },
   { 'folke/tokyonight.nvim', lazy = true },
-  { 'Mofiqul/vscode.nvim', lazy = true },
+  { 'Mofiqul/vscode.nvim', priority = 1000, lazy = true },
   { 'navarasu/onedark.nvim', lazy = true },
   { 'ellisonleao/gruvbox.nvim', lazy = true },
 
@@ -141,6 +141,42 @@ local plugins = {
 }
 
 
-local opts = {defaults = {lazy = true}} -- lazy load all supported plugins by default
+local opts = {
+  defaults = {lazy = true},
+  --install = { colorscheme = { "catppuccin" } },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "2html_plugin",
+        "tohtml",
+        "getscript",
+        "getscriptPlugin",
+        "gzip",
+        "logipat",
+        "netrw",
+        "netrwPlugin",
+        "netrwSettings",
+        "netrwFileHandlers",
+        "matchit",
+        "tar",
+        "tarPlugin",
+        "rrhelper",
+        "spellfile_plugin",
+        "vimball",
+        "vimballPlugin",
+        "zip",
+        "zipPlugin",
+        "tutor",
+        "rplugin",
+        "syntax",
+        "synmenu",
+        "optwin",
+        "compiler",
+        "bugreport",
+        "ftplugin",
+      },
+    },
+  },
+}
 
 require("lazy").setup(plugins, opts)
