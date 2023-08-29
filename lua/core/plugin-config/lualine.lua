@@ -1,7 +1,7 @@
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'catppuccin', --change to 'auto to automatically determine theme.'
+    theme = 'vscode', --change to 'auto to automatically determine theme.'
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {

@@ -12,11 +12,16 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
+vim.opt.updatetime = 250
 vim.cmd [[ set noswapfile ]]
+
+for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
+    vim.g["loaded_" .. provider .. "_provider"] = 0
+end
 
 --change core/plugin-config/lualine.lua theme after selecting one of the themes below.
 --vim.cmd.colorscheme 'tokyonight'
-vim.cmd.colorscheme 'catppuccin'
+--vim.cmd.colorscheme 'catppuccin'
 --vim.cmd.colorscheme 'onedark'
---vim.cmd.colorscheme 'vscode'
+require('vscode').load()
 --vim.cmd.colorscheme 'gruvbox'

@@ -7,10 +7,10 @@
 local c = require('vscode.colors').get_colors()
 require('vscode').setup({
     -- Alternatively set style in setup
-    -- style = 'light'
+    style = 'dark',
 
     -- Enable transparent background
-    transparent = true,
+    transparent = false,
 
     -- Enable italic comment
     italic_comments = true,
