@@ -1,10 +1,13 @@
-require("mason-lspconfig").setup()
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "lua_ls", "rust_analyzer" },
+})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local saga = require("lspsaga")
 saga.init_lsp_saga = {
-  code_action_prompt = { enable = false, }, 
+  code_action_prompt = { enable = true, }, 
 }
 
 --vim.keymap.set("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
