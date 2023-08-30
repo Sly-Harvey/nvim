@@ -1,4 +1,5 @@
-require'FTerm'.setup({
+
+require("FTerm").setup({
     border = 'double',
     dimensions  = {
         height = 0.9,
@@ -11,7 +12,7 @@ require'FTerm'.setup({
     ---Command to run inside the terminal
     ---NOTE: if given string[], it will skip the shell and directly executes the command
     ---@type fun():(string|string[])|string|string[]
-    cmd = os.getenv('ComSpec'), -- this line is windows specific in the case of macos or linux use $SHELL
+    cmd = os.getenv('ComSpec'), -- this line is windows specific. In the case of macos or linux use $SHELL
 
     ---Neovim's native window border. See `:h nvim_open_win` for more configuration options.
     border = 'single',
