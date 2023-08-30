@@ -14,36 +14,95 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- 'user/repo'
   -- Themes
-  { 'Mofiqul/vscode.nvim', priority = 1000, lazy = false },
-  { "catppuccin/nvim", name = "catppuccin", lazy =true },
-  { 'folke/tokyonight.nvim', lazy = true },
-  { 'navarasu/onedark.nvim', lazy = true },
-  { 'ellisonleao/gruvbox.nvim', lazy = true },
+  {
+    'Mofiqul/vscode.nvim',
+    priority = 1000,
+    lazy = false,
+    config = function() require("themes.vscode") end
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = true,
+    config = function() require("themes.catppuccin") end
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = true,
+    config = function() require("themes.tokyonight") end
+  },
+  {
+    'navarasu/onedark.nvim',
+    lazy = true,
+    config = function() require("themes.onedark") end
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    lazy = true,
+    config = function() require("themes.gruvbox") end
+  },
 
   -- General
   {
     'goolord/alpha-nvim',
     event = "VimEnter",
+    config = function()
+      require("plugins.alpha")
+    end,
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
   {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
+    config = function()
+      require("plugins.telescope")
+    end,
     tag = '0.1.2',
     dependencies = { {'nvim-lua/plenary.nvim'} }
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
+    config = function() require("plugins.treesitter") end
   },
-  { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
-  {'akinsho/bufferline.nvim', version = "*", lazy = true, dependencies = 'nvim-tree/nvim-web-devicons'},
-  {"dnlhc/glance.nvim", event = "BufReadPre"},
+  { 
+    "max397574/better-escape.nvim", 
+    event = "InsertCharPre", 
+    opts = { timeout = 300 },
+    config = function()
+      require("plugins.better-escape")
+    end
+  },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    event = "WinNew",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require("plugins.bufferline")
+    end
+  },
+  {"dnlhc/glance.nvim", cmd = "Glance"},
+  {
+    'numToStr/FTerm.nvim',
+    cmd = "FTermToggle",
+    config = function() require("plugins.fterm") end
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    cmd = { "NvimTreeFindFileToggle", "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFile", "NvimTreeCollapse", },
+    init = function() require("plugins.nvim-tree") end,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    event = "UIEnter",
+    config = function()
+      require("plugins.lualine")
+    end,
+  },
   'folke/neodev.nvim',
-  'numToStr/FTerm.nvim',
-  {'nvim-tree/nvim-tree.lua', cmd = { "NvimTreeToggle", "NvimTreeFocus" }},
-  'nvim-lualine/lualine.nvim',
   'tpope/vim-sleuth',
   
 
@@ -63,37 +122,28 @@ local plugins = {
   {
     "lewis6991/gitsigns.nvim",
     ft = { "gitcommit", "diff" },
+    config = function() require("plugins.git-signs") end,
     dependencies = {
       'lewis6991/gitsigns.nvim',
       'tpope/vim-fugitive',
       'tpope/vim-rhubarb',
     },
-    init = function()
-      -- load gitsigns only when a git file is opened
-      vim.api.nvim_create_autocmd({ "BufRead" }, {
-        group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
-        callback = function()
-          vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
-          if vim.v.shell_error == 0 then
-            vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
-            vim.schedule(function()
-              require("lazy").load { plugins = { "gitsigns.nvim" } }
-            end)
-          end
-        end,
-      })
-    end,
   },
   
 
   -- Languages
-  'simrat39/rust-tools.nvim',
+  {
+    'simrat39/rust-tools.nvim',
+    ft = "rust",
+    config = function() require("plugins.rust") end,
+  },
 
   -- Language server protocol
   {
     'neovim/nvim-lspconfig',
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+    config = function() require("plugins.lsp-config") end,
     dependencies = {
       {
         'williamboman/mason.nvim',
@@ -110,6 +160,7 @@ local plugins = {
   {
     'hrsh7th/nvim-cmp',
     event = "InsertEnter",
+    config = function() require("plugins.completions") end,
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
@@ -131,8 +182,16 @@ local plugins = {
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
-      'lukas-reineke/indent-blankline.nvim',
-      'nmac427/guess-indent.nvim',
+      {
+        'nmac427/guess-indent.nvim',
+        config = function() require("plugins.guess-indent") end
+      },
+      {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+          require("plugins.indent-blankline")
+        end,
+      },
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-nvim-lsp',

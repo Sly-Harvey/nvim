@@ -11,8 +11,8 @@ vim.api.nvim_create_autocmd("User", {
     once = true,
     callback = function()
     local stats = require("lazy").stats()
-    local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
-    dashboard.section.footer.val = { "Neovim loaded " .. stats.count .. " plugins  in " .. ms .. "ms" }
+    local ms = math.floor(stats.startuptime * 100 + 0.5) / 100 --*.2f
+    dashboard.section.footer.val = { "Neovim loaded " .. stats.loaded .. " plugins  in " .. ms .. "ms" }
     pcall(vim.cmd.AlphaRedraw)
     end,
 })

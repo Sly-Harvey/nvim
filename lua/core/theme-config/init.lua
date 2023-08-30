@@ -1,5 +1,0 @@
-require("core.theme-config.gruvbox")
-require("core.theme-config.onedark")
-require("core.theme-config.tokyonight")
-require("core.theme-config.vscode")
-require("core.theme-config.catppuccin")
