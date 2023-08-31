@@ -13,6 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   -- 'user/repo'
+  -- this plugin is required for some other plugins to load.
+  { 'nvim-lua/plenary.nvim', event = "UIEnter"},
+
   -- Themes
   {
     'Mofiqul/vscode.nvim',
@@ -52,17 +55,21 @@ local plugins = {
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
   {
+    event = "VeryLazy",
+    "ahmedkhalf/project.nvim",
+    config = function() require("plugins.project") end
+  },
+  {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
     config = function()
       require("plugins.telescope")
     end,
     tag = '0.1.2',
-    dependencies = { {'nvim-lua/plenary.nvim'} }
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
+    event = "BufAdd",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = function() require("plugins.treesitter") end
@@ -78,7 +85,7 @@ local plugins = {
   {
     'akinsho/bufferline.nvim',
     version = "*",
-    event = "WinNew",
+    event = "BufAdd", --WinNew
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       require("plugins.bufferline")
@@ -134,8 +141,16 @@ local plugins = {
   -- Languages
   {
     'simrat39/rust-tools.nvim',
-    ft = "rust",
+    ft = {
+      "rust",
+    },
     config = function() require("plugins.rust") end,
+  },
+  {
+    'saecki/crates.nvim',
+    tag = 'v0.3.0',
+    ft = "toml",
+    config = function() require("plugins.crates") end,
   },
 
   -- Language server protocol
