@@ -1,31 +1,13 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local function open_nvim_tree(data)
-
-  -- buffer is a real file on the disk
-  local real_file = vim.fn.filereadable(data.file) == 1
-
-  -- buffer is a [No Name]
-  local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-  if not real_file and not no_name then
-    return
-  end
-
-  -- open the tree, find the file but don't focus it
-  require("nvim-tree.api").tree.open()
-end
-
--- use: "BufWinEnter"
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
-  pattern = "*.*",
-  --callback = open_nvim_tree
-  callback = open_nvim_tree
-})
-
 require("nvim-tree").setup({
+    sync_root_with_cwd = true,
+    respect_buf_cwd = false,
+    update_focused_file = {
+      enable = true,
+      update_root = true
+    },
     actions = {
       open_file = {
         quit_on_open = false,
@@ -43,7 +25,8 @@ require("nvim-tree").setup({
       group_empty = true,
     },
     filters = {
-      dotfiles = true,
+      git_ignored = false, -- Show all .gitignore files
+      dotfiles = false, -- Show all dotfiles
     },
 })
 

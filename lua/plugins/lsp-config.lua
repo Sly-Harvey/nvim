@@ -1,3 +1,13 @@
+-- Configure code warnings such as unused variables
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      signs = true,
+      virtual_text = false, -- Disable warnings
+      underline = false, --Disable warnings highlight
+      update_in_insert = true,
+    }
+  )
+
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "rust_analyzer" },

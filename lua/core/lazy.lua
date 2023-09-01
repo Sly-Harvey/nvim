@@ -54,18 +54,25 @@ local plugins = {
     end,
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
-  {
-    event = "VeryLazy",
-    "ahmedkhalf/project.nvim",
-    config = function() require("plugins.project") end
-  },
+  --{
+  --  event = "UIEnter",
+  --  "ahmedkhalf/project.nvim",
+  --  config = function() require("plugins.project") end
+  --},
   {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
+    tag = '0.1.2',
+    dependencies = {
+      {
+        event = "UIEnter",
+        "ahmedkhalf/project.nvim",
+        config = function() require("plugins.project") end
+      },
+    },
     config = function()
       require("plugins.telescope")
     end,
-    tag = '0.1.2',
   },
   {
     "nvim-treesitter/nvim-treesitter",
