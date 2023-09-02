@@ -17,6 +17,7 @@ local plugins = {
   { 'nvim-lua/plenary.nvim', event = "UIEnter"},
 
   -- Themes
+  "lunarvim/darkplus.nvim",
   {
     'Mofiqul/vscode.nvim',
     priority = 1000,
@@ -54,18 +55,13 @@ local plugins = {
     end,
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
-  --{
-  --  event = "UIEnter",
-  --  "ahmedkhalf/project.nvim",
-  --  config = function() require("plugins.project") end
-  --},
   {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
     tag = '0.1.2',
     dependencies = {
       {
-        event = "UIEnter",
+        event = "VeryLazy",
         "ahmedkhalf/project.nvim",
         config = function() require("plugins.project") end
       },
