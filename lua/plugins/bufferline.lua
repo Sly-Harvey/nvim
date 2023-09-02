@@ -15,14 +15,14 @@ bufferline.setup({
     left_trunc_marker = "",
     right_trunc_marker = "",
     numbers = "ordinal",
-    max_name_length = 30, --default 15
-    max_prefix_length = 30, -- default 6
+    max_name_length = 15, --default 15
+    max_prefix_length = 6, -- default 6
     tab_size = 21,
-    diagnostics = false, -- | "nvim_lsp" | "coc", default = nvim_lsp
+    diagnostics = true, -- | "nvim_lsp" | "coc", default = nvim_lsp
     diagnostics_update_in_insert = false,
     show_buffer_icons = true,
     show_buffer_close_icons = false,
-    show_close_icon = false,
+    show_close_icon = true,
     persist_buffer_sort = true,
     enforce_regular_tabs = true,
     always_show_bufferline = true,

@@ -20,15 +20,18 @@ require('vscode').setup({
 
     -- Override colors (see ./lua/vscode/colors.lua)
     color_overrides = {
-        vscLineNumber = '#FFFFFF',
+        --vscLineNumber = '#FFFFFF',
+        vscRed = '#9CDCFE',
     },
 
     -- Override highlight groups (see ./lua/vscode/theme.lua)
     group_overrides = {
         -- this supports the same val table as vim.api.nvim_set_hl
         -- use colors from this colorscheme by requiring vscode.colors!
-        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
-        Comment = { fg = c.vscGreen, bg='NONE', italic=true }
+        LineNr = { fg = '#858585', bg = c.vscBack },
+        CursorLineNr = { fg = '#C6C6C6', bg = c.vscBack },
+        Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
+        Comment = { fg = c.vscGreen, bg ='NONE', italic = true }
     }
 })
---require('vscode').load()
+require('vscode').load()
