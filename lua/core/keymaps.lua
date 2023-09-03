@@ -24,11 +24,11 @@ keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
 keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- Cargo hotkeys
-keymap('n', '<C-M-F2>', '<CMD>CargoBuildDebug<CR>', opts)
-keymap('n', '<C-M-F3>', '<CMD>CargoBuildRelease<CR>', opts)
-keymap('n', '<C-M-F4>', '<CMD>CargoRunDebug<CR>', opts)
-keymap('n', '<C-M-F5>', '<CMD>CargoRunRelease<CR>', opts)
-keymap('n', '<C-M-F6>', '<CMD>CargoClean<CR>', opts)
+keymap('n', '<S-M-F2>', '<CMD>CargoBuildDebug<CR>', opts)
+keymap('n', '<S-M-F3>', '<CMD>CargoBuildRelease<CR>', opts)
+keymap('n', '<S-M-F4>', '<CMD>CargoRunDebug<CR>', opts)
+keymap('n', '<S-M-F5>', '<CMD>CargoRunRelease<CR>', opts)
+keymap('n', '<S-M-F6>', '<CMD>CargoClean<CR>', opts)
 
 -- Telescope
 keymap('n', '<leader><leader>', ':Telescope<CR>', opts)
