@@ -112,7 +112,8 @@ local plugins = {
       require("plugins.lualine")
     end,
   },
-  'folke/neodev.nvim',
+
+  { "folke/neodev.nvim", opts = {}, event = "UIEnter" },
   'tpope/vim-sleuth',
   
 
