@@ -5,6 +5,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.backspace = '2'
 vim.opt.showcmd = true
 vim.wo.number = true -- Line numbers
+vim.wo.relativenumber = true -- Relative line numbers
 vim.opt.autowrite = true
 vim.opt.cursorline = true
 vim.opt.laststatus = 2
