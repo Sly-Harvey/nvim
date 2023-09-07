@@ -24,8 +24,9 @@ local function open_nvim_tree(data)
   end
 -- BufWinEnter to focal file
 -- BufEnter to focus nvim-tree
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd({"BufWinEnter"}, {
     group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+    once = true,
     pattern = "*.*",
     callback = open_nvim_tree
   })

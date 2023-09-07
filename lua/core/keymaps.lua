@@ -68,6 +68,9 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
+-- Cancel search highlighting with ESC
+keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", opts)
+
 -- Insert --
 -- Press jk fast to exit insert mode 
 -- deprecated: keymap("i", "jk", "<ESC>", opts)
@@ -84,6 +87,10 @@ keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Visual Block --
+
+-- Paste over currently selected text without yanking it
+keymap("v", "p", '"_dP', opts)
+
 -- Move text up and down
 keymap("x", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("x", "K", ":m '<-2<CR>gv=gv", opts)

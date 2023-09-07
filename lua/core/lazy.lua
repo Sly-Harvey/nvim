@@ -55,6 +55,7 @@ local plugins = {
     end,
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
+  { "folke/neodev.nvim", opts = {}, event = "UIEnter" },
   {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
@@ -112,8 +113,6 @@ local plugins = {
       require("plugins.lualine")
     end,
   },
-
-  { "folke/neodev.nvim", opts = {}, event = "UIEnter" },
   'tpope/vim-sleuth',
   
 
