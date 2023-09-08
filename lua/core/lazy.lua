@@ -131,6 +131,7 @@ local plugins = {
   -- git stuff
   {
     "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
     ft = { "gitcommit", "diff" },
     config = function() require("plugins.git-signs") end,
     dependencies = {
