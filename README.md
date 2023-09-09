@@ -15,7 +15,7 @@ mkdir %homepath%\appdata\local\nvim & rmdir /S /Q %homepath%\appdata\local\nvim 
 
 **To install on Linux/Mac, open terminal and then run the command below**
 ```command
-rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
+rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
 ```
 ## After installation
 open neovim and run the command :Mason
