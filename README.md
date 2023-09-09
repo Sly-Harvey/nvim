@@ -10,7 +10,7 @@
 
 **To install on windows, open command prompt and then run the command below**
 ```bat
-mkdir %homepath%\appdata\local\nvim & rmdir /S /Q %homepath%\appdata\local\nvim && git clone https://github.com/Sly-Harvey/nvim.git %homepath%\appdata\local\nvim
+rmdir /S /Q %homepath%\appdata\local\nvim-data & rmdir /S /Q %homepath%\appdata\local\nvim & git clone https://github.com/Sly-Harvey/nvim.git %homepath%\appdata\local\nvim
 ```
 
 **To install on Linux/Mac, open terminal and then run the command below**
