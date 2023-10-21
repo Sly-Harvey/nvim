@@ -205,12 +205,7 @@ local plugins = {
         'nmac427/guess-indent.nvim',
         config = function() require("plugins.guess-indent") end
       },
-      {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function()
-          require("plugins.indent-blankline")
-        end,
-      },
+      { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, config = function() require("plugins.indent-blankline") end },
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-nvim-lsp',
