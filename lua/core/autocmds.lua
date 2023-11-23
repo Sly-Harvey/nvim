@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- auto open nvim-tree
 vim.api.nvim_create_autocmd({"BufWinEnter"}, {
     group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
-    once = false,
+    once = true,
     pattern = "*.*",
     callback = function(data)
       -- buffer is help
