@@ -1,6 +1,1 @@
-require("core.autocmds")
-require("core.lazy")
-require("core.options")
-require("core.keymaps")
--- No init file: require("themes")
--- No init file: require("plugins")
+require("config")
