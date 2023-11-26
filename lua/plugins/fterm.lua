@@ -69,5 +69,3 @@ require("FTerm").setup({
     ---@type fun()|nil
     on_stderr = nil,
 })
-vim.keymap.set('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
-vim.keymap.set('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
