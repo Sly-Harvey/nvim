@@ -1,7 +1,28 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-vim.keymap.set('n', '<c-n>', ':NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-n>', ':NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
+
+
+--vim.keymap.set("i", "<C-h>", "<Left>", { noremap = true, silent = true })
+--vim.keymap.set("i", "<C-h>", "<Down>", { noremap = true, silent = true })
+--vim.keymap.set("i", "<C-h>", "<Up>", { noremap = true, silent = true })
+--vim.keymap.set("i", "<C-h>", "<Right>", { noremap = true, silent = true })
+--vim.keymap.set("c", "<C-h>", "<Left>", { noremap = true, silent = true })
+--vim.keymap.set("c", "<C-h>", "<Down>", { noremap = true, silent = true })
+--vim.keymap.set("c", "<C-h>", "<Up>", { noremap = true, silent = true })
+--vim.keymap.set("c", "<C-h>", "<Right>", { noremap = true, silent = true })
+
+-- Navigate buffers
+vim.keymap.set("n", "<S-l>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { noremap = true, silent = true })
+
+-- Window navigation
+vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-j>", "<C-w>j<CMD>startinsert<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { noremap = true, silent = true })
 
 -- Move text up and down
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
