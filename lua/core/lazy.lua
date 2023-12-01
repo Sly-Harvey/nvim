@@ -21,8 +21,8 @@ local plugins = {
   {
     'Mofiqul/vscode.nvim',
     priority = 1000,
-    lazy = false,
-    config = function() require("themes.vscode") end
+    lazy = true,
+    init = function() require("themes.vscode") end
   },
   {
     "catppuccin/nvim",
@@ -55,13 +55,12 @@ local plugins = {
     end,
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
-  { "folke/neodev.nvim", opts = {}, event = "UIEnter" },
   {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
     dependencies = {
       {
-        event = "VeryLazy",
+        cmd = "Telescope",
         "ahmedkhalf/project.nvim",
         config = function() require("plugins.project") end
       },
@@ -97,7 +96,7 @@ local plugins = {
   {"dnlhc/glance.nvim", cmd = "Glance"},
   {
     'numToStr/FTerm.nvim',
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     config = function() require("plugins.fterm") end
   },
   {
@@ -107,7 +106,7 @@ local plugins = {
   },
   {
     'nvim-lualine/lualine.nvim',
-    event = "UIEnter",
+    event = "ColorScheme",
     config = function()
       require("plugins.lualine")
     end,
@@ -130,7 +129,7 @@ local plugins = {
   -- git stuff
   {
     "lewis6991/gitsigns.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     ft = { "gitcommit", "diff" },
     config = function() require("plugins.git-signs") end,
     dependencies = {
@@ -160,10 +159,11 @@ local plugins = {
   -- Dubug adapter protocol
   {
     'jay-babu/mason-nvim-dap.nvim',
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     dependencies = {
+      { "folke/neodev.nvim", lazy = false, opts = {} },
       'williamboman/mason.nvim',
-      'mfussenegger/nvim-dap'
     },
     opts = {
       automatic_setup = true,
@@ -173,8 +173,16 @@ local plugins = {
   },
   {
     'rcarriga/nvim-dap-ui',
-    event = "VeryLazy",
-    dependencies = 'mfussenegger/nvim-dap',
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      { "folke/neodev.nvim", lazy = false, opts = {} },
+      'mfussenegger/nvim-dap',
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        config = true
+      },
+    },
+      
     config = function() require("plugins.dap-config") end
   },
 
@@ -185,6 +193,7 @@ local plugins = {
     cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     config = function() require("plugins.lsp-config") end,
     dependencies = {
+      { "folke/neodev.nvim", lazy = false, opts = {} },
       'williamboman/mason-lspconfig.nvim',
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
       'glepnir/lspsaga.nvim',
