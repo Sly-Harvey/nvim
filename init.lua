@@ -1,2 +1,2 @@
-require("util")
+require("util.functions")
 require("core")
