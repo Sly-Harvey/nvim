@@ -4,6 +4,8 @@
 <a href="https://dotfyle.com/Sly-Harvey/nvim"><img src="https://dotfyle.com/Sly-Harvey/nvim/badges/leaderkey?style=for-the-badge" /></a>
 <a href="https://dotfyle.com/Sly-Harvey/nvim"><img src="https://dotfyle.com/Sly-Harvey/nvim/badges/plugin-manager?style=for-the-badge" /></a>
 
+For a full list of plugins, visit https://dotfyle.com/Sly-Harvey/nvim
+
 <img src="images/vscode-theme1.png" width=800>
 <img src="images/vscode-theme2.png" width=800>
 
