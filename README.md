@@ -19,7 +19,9 @@ rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.
 ```
 ## After installation
 **Press Ctrl + b to build project.**
+
 **Press F5 to debug.**
+
 **Press F6 to run in release mode.**
 
 open neovim and run the command :Mason
