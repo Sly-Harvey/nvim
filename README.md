@@ -18,10 +18,11 @@ rmdir /S /Q %homepath%\appdata\local\nvim-data & rmdir /S /Q %homepath%\appdata\
 rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
 ```
 ## After installation
+**Press Ctrl + b to build project.**
 
-**Press Ctrl + b to build project**
-**Press f5 to debug**
-**Press f6 to file/release mode**
+**Press F5 to debug.**
+
+**Press F6 to run in release mode.**
 
 open neovim and run the command :Mason
 This will open the Mason menu. Here you can install lsp servers which are required for language support such as auto completions.
