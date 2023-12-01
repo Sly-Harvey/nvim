@@ -1,4 +1,5 @@
 local dap, dapui = require("dap"), require("dapui")
+
 dapui.setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
@@ -17,6 +18,30 @@ end
 
 --$CWD_FULL/target/debug/$CWD
 
+local function sleep(a) 
+  local sec = tonumber(os.clock() + a); 
+  while (os.clock() < sec) do 
+  end 
+end
+
+
+-- backup code for build function
+--local function build()
+--  -- Code Runner - execute commands in a floating terminal
+--  local interpreted = { lua = 'lua', javascript = 'node', python = 'python' }
+--  local compiled = { rust = 'cargo build' }
+--
+--  local buf = vim.api.nvim_buf_get_name(0)
+--  local ftype = vim.filetype.match({ filename = buf })
+--  local exec = nil
+--  if compiled[ftype] ~= nil then
+--    require('FTerm').run({ compiled[ftype] })
+--  elseif interpreted[ftype] ~= nil then
+--    require('FTerm').run({ interpreted[ftype], buf })
+--  else return end
+--end
+
+
 dap.configurations.rust= {
   {
     name = "Debug",
@@ -24,9 +49,9 @@ dap.configurations.rust= {
     request = "launch",
     program = function()
       require("nvim-tree.api").tree.close()
-      require('FTerm').run({ 'cargo', 'build' })
-      require('FTerm').toggle()
       vim.cmd('startinsert')
+      require('FTerm').close()
+      sleep(0.1)
       return vim.fn.getcwd() .. '/target/debug/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
     end,
     cwd = '${workspaceFolder}',
@@ -35,8 +60,28 @@ dap.configurations.rust= {
   },
 }
 
-vim.cmd('stopinsert')
-dap.terminate() 
+dap.configurations.python = {
+  {
+    -- The first three options are required by nvim-dap
+    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+    name = "Debug";
+    request = 'launch';
+
+    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+    program = function()
+      require("nvim-tree.api").tree.close()
+      vim.cmd('startinsert')
+      require('FTerm').close()
+      sleep(0.1)
+      return "${file}";
+    end; -- This configuration will launch the current file if used.
+    pythonPath = 'python';
+    cwd = "${workspaceFolder}";
+    console = 'integratedTerminal'
+  },
+}
+
 --vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
 --vim.keymap.set("n", "<Leader>dx", function() dap.terminate() end)
 vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
@@ -44,9 +89,12 @@ vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
   dap.terminate()
 end)
 
+vim.keymap.set('n', '<C-b>', build_project)
+vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F5>', function()
+  require('FTerm').close()
+  dap.continue() end)
+vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F6>', run_release)
 vim.keymap.set('n', '<Leader>dt', function() dapui.toggle() end)
-vim.keymap.set('n', '<F5>', function() dap.continue() end)
-vim.keymap.set('i', '<F5>', function() dap.continue() end)
 vim.keymap.set('n', '<F10>', function() dap.step_over() end)
 vim.keymap.set('n', '<F11>', function() dap.step_into() end)
 vim.keymap.set('n', '<F12>', function() dap.step_out() end)
