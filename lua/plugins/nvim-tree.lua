@@ -20,6 +20,7 @@ return {
       },
       view = {
         adaptive_size = false,
+        preserve_window_proportions = true,
         side = "left",
         signcolumn = "no",
       },
