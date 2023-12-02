@@ -37,17 +37,18 @@ return {
     
   config = function()
     local dap, dapui = require("dap"), require("dapui")
-    local cmake = require("cmake-tools")
 
     dapui.setup()
     dap.listeners.after.event_initialized["dapui_config"] = function()
       dapui.open()
+      dap.repl.close()
     end
     dap.listeners.before.event_terminated["dapui_config"] = function()
       dapui.close()
     end
     dap.listeners.before.event_exited["dapui_config"] = function()
       dapui.close()
+      dap.repl.close()
     end
     
     -- default rust debug code:
@@ -64,10 +65,6 @@ return {
         type = "codelldb",
         request = "launch",
         program = function()
-          require("nvim-tree.api").tree.close()
-          vim.cmd('startinsert')
-          require('FTerm').close()
-          sleep(0.1)
           return vim.fn.getcwd() .. '/target/debug/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
         end,
         cwd = '${workspaceFolder}',
@@ -86,9 +83,6 @@ return {
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
     
         program = function()
-          require("nvim-tree.api").tree.close()
-          vim.cmd('startinsert')
-          require('FTerm').close()
           sleep(0.1)
           return "${file}";
         end, -- This configuration will launch the current file if used.
@@ -103,12 +97,38 @@ return {
     vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
       vim.cmd('stopinsert')
       dap.terminate()
+      dap.repl.close()
     end)
     
     vim.keymap.set('n', '<C-b>', build_project)
+
+    --require('FTerm').close()
+    --require("nvim-tree.api").tree.close()
+    --vim.cmd('startinsert')
+    --dap.continue()
+
     vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F5>', function()
       require('FTerm').close()
-      dap.continue()
+      require("nvim-tree.api").tree.close()
+      vim.cmd('startinsert')
+      if vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
+        local job = require('cmake').configure()
+        if job then
+          job:after(vim.schedule_wrap(
+            function(_, exit_code)
+              if exit_code == 0 then
+                vim.cmd("CMake select_target")
+                vim.cmd("CMake build_and_debug")
+                dap.repl.close()
+              else
+                vim.notify("Target build failed", vim.log.levels.ERROR, { title = 'CMake' })
+              end
+            end
+          ))
+        end
+      else
+        dap.continue()
+      end
     end)
     vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F6>', run_release)
     vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("FTerm").close()<CR>', opts)

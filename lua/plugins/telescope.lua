@@ -22,14 +22,6 @@ return {
                 -- All the patterns used to detect root dir, when **"pattern"** is in
                 -- detection_methods
                 patterns = {
-                    "Cargo.toml",
-                    "CMakeLists.txt",
-                    "meson.build",
-                    "LICENSE",
-                    "README.md",
-                    "Makefile",
-                    "package.json",
-                    "lazy-lock.json",
                     "*.sln",
                     ".git",
                     ".vs",
@@ -38,6 +30,18 @@ return {
                     ".bzr",
                     ".svn",
                     "_darcs",
+                    "!>home",
+                    "!=tmp",
+                    "Cargo.toml",
+                    "CMakeLists.txt",
+                    "Makefile",
+                    "meson.build",
+                    "PKGBUILD",
+                    "LICENSE",
+                    "README.md",
+                    "package.json",
+                    "composer.json",
+                    "lazy-lock.json",
                 },
               
                 -- Table of lsp clients to ignore by name
@@ -51,6 +55,8 @@ return {
                     "~/.cache/*",
                     "~/.cargo/*",
                     "~/.node_modules/*",
+                    "~/.pnpm-store/*",
+                    "~/.local/share/pnpm/*",
                 },
               
                 -- Show hidden files in telescope
