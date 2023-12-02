@@ -97,20 +97,12 @@ return {
     vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
       vim.cmd('stopinsert')
       dap.terminate()
-      dap.repl.close()
+      --dap.repl.close()
     end)
     
     vim.keymap.set('n', '<C-b>', build_project)
 
-    --require('FTerm').close()
-    --require("nvim-tree.api").tree.close()
-    --vim.cmd('startinsert')
-    --dap.continue()
-
     vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F5>', function()
-      require('FTerm').close()
-      require("nvim-tree.api").tree.close()
-      vim.cmd('startinsert')
       if vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
         local job = require('cmake').configure()
         if job then
@@ -118,15 +110,23 @@ return {
             function(_, exit_code)
               if exit_code == 0 then
                 vim.cmd("CMake select_target")
+                require('FTerm').close()
+                require("nvim-tree.api").tree.close()
+                vim.cmd('startinsert')
+                sleep(0.05)
                 vim.cmd("CMake build_and_debug")
                 dap.repl.close()
               else
-                vim.notify("Target build failed", vim.log.levels.ERROR, { title = 'CMake' })
+                vim.notify("Target debug failed", vim.log.levels.ERROR, { title = 'CMake' })
               end
             end
           ))
         end
       else
+        require('FTerm').close()
+        require("nvim-tree.api").tree.close()
+        vim.cmd('startinsert')
+        sleep(0.05)
         dap.continue()
       end
     end)
