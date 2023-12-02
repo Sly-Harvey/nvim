@@ -130,7 +130,7 @@ return {
         dap.continue()
       end
     end)
-    vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F6>', run_release)
+    --vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F6>', run_release)
     vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("FTerm").close()<CR>', opts)
     vim.keymap.set('n', '<Leader>dt', function() dapui.toggle() end)
     vim.keymap.set('n', '<F10>', function() dap.step_over() end)
