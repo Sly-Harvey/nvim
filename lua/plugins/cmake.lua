@@ -1,12 +1,13 @@
 return {
     'Sly-Harvey/neovim-cmake',
     ft = {'cpp', 'cmake', 'c'},
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = function()
       local Path = require('plenary.path')
       require('cmake').setup({
         cmake_executable = 'cmake', -- CMake executable to run.
         save_before_build = true, -- Save all buffers before building.
-        parameters_file = 'neovim.json', -- JSON file to store information about selected target, run arguments and build type.
+        parameters_file = 'build/neovim.json', -- JSON file to store information about selected target, run arguments and build type.
         default_parameters = { args = {}, build_type = 'Debug' }, -- The default values in `parameters_file`. Can also optionally contain `run_dir` with the working directory for applications.
         build_dir = tostring(Path:new('{cwd}', 'build', '{os}-{build_type}')), -- Folder with samples. `samples` folder from the plugin directory is used by default.
         default_projects_path = tostring(Path:new(vim.loop.os_homedir(), 'Projects')), -- Default folder for creating project.
@@ -18,7 +19,7 @@ return {
           height = 10, -- Height of the opened quickfix.
           only_on_error = true, -- Open quickfix window only if target build failed.
         },
-        copy_compile_commands = true, -- Copy compile_commands.json to current working directory.
+        copy_compile_commands = false, -- Copy compile_commands.json to current working directory.
         dap_configurations = { -- Table of different DAP configurations.
           codelldb_vscode = { type = 'codelldb', request = 'launch' },
           lldb_vscode = { type = 'lldb', request = 'launch' },
@@ -27,9 +28,9 @@ return {
         dap_configuration = 'codelldb_vscode', -- DAP configuration to use if the projects `parameters_file` does not specify one.
         dap_open_command = function(...) require('dap').repl.open(...) end, -- Command to run after starting DAP session. You can set it to `false` if you don't want to open anything or `require('dapui').open` if you are using https://github.com/rcarriga/nvim-dap-ui
       })
-      vim.keymap.set('', '<leader>cg', ':CMakeGenerate<cr>', {})
-      vim.keymap.set('', '<leader>cb', ':CMakeBuild<cr>', {})
-      vim.keymap.set('', '<leader>cq', ':CMakeClose<cr>', {})
-      vim.keymap.set('', '<leader>cc', ':CMakeClean<cr>', {})
+      vim.keymap.set('', '<leader>np', ':CMake create_project<cr>', {})
+      vim.keymap.set('', '<leader>cg', ':CMake configure<cr>', {})
+      vim.keymap.set('', '<leader>cbt', ':CMake select_build_type<cr>', {})
+      vim.keymap.set('', '<leader>cc', ':CMake clean<cr>', {})
     end
 }

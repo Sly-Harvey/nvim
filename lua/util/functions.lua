@@ -22,6 +22,20 @@ function build_project()
     local ftype = vim.filetype.match({ filename = buf })
     if runners[ftype] ~= nil then
       require('FTerm').run({ runners[ftype] })
+    elseif vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
+      local job = require('cmake').configure()
+      if job then
+        job:after(vim.schedule_wrap(
+          function(_, exit_code)
+            if exit_code == 0 then
+              vim.cmd("CMake select_target")
+              vim.cmd("CMake build")
+            else
+              vim.notify("Target build failed", vim.log.levels.ERROR, { title = 'CMake' })
+            end
+          end
+        ))
+      end
     else return end
   end
   
