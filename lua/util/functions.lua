@@ -16,7 +16,7 @@
 
 
 function build_project()
-    local runners = { rust = 'cargo build', cpp = 'cmake build' }
+    local runners = { rust = 'cargo build' }
   
     local buf = vim.api.nvim_buf_get_name(0)
     local ftype = vim.filetype.match({ filename = buf })
@@ -28,7 +28,7 @@ function build_project()
 function run_release()
 -- Code Runner - execute commands in a floating terminal
 local interpreted = { lua = 'lua', javascript = 'node', python = 'python' }
-local compiled = { rust = 'cargo run -r' }
+local compiled = { rust = 'cargo run -r', }
 
 local buf = vim.api.nvim_buf_get_name(0)
 local ftype = vim.filetype.match({ filename = buf })
