@@ -23,6 +23,8 @@ return {
                 -- detection_methods
                 patterns = {
                     "Cargo.toml",
+                    "CMakeLists.txt",
+                    "meson.build",
                     "LICENSE",
                     "README.md",
                     "Makefile",
