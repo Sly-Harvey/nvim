@@ -11,24 +11,25 @@ return {
   config = function()
     -- Configure code warnings such as unused variables
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        signs = true, -- False to disable code warnings.
-        virtual_text = true, -- False to disable code warnings.
-        underline = false, -- False to disable code warnings.
-        update_in_insert = true, -- False to disable code warnings.
-      }
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      signs = true, -- False to disable code warnings.
+      virtual_text = true, -- False to disable code warnings.
+      underline = false, -- False to disable code warnings.
+      update_in_insert = true, -- False to disable code warnings.
+    }
     )
 
     require("mason").setup()
     require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
+      ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
     })
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local lspconfig = require("lspconfig")
 
     local saga = require("lspsaga")
     saga.init_lsp_saga = {
-    code_action_prompt = { enable = true, }, 
+      code_action_prompt = { enable = true, }, 
     }
 
     --vim.keymap.set("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
@@ -36,29 +37,32 @@ return {
     --vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
     vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
 
-    require("lspconfig").lua_ls.setup {
-    capabilities = capabilities,
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            [vim.fn.stdpath "config" .. "/lua"] = true,
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" },
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+              [vim.fn.stdpath "config" .. "/lua"] = true,
+            },
           },
         },
-      },
+      }
     }
-    }
-
-    require("lspconfig").solargraph.setup {
-    capabilities = capabilities,
+    lspconfig.pyright.setup {
+      capabilities = capabilities,
     }
 
-    require("lspconfig").pyright.setup {
-    capabilities = capabilities,
+    lspconfig.clangd.setup {
+      capabilities = capabilities,
+    }
+
+    lspconfig.solargraph.setup {
+      capabilities = capabilities,
     }
   end
 }
