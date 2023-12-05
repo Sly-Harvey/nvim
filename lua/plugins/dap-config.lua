@@ -99,6 +99,12 @@ return {
       dap.terminate()
       --dap.repl.close()
     end)
+
+    vim.keymap.set({'n', 'i', 'v', 'x'}, '<S-F5>', function()
+      vim.cmd('stopinsert')
+      dap.terminate()
+      --dap.repl.close()
+    end)
     
     vim.keymap.set('n', '<C-b>', build_project)
 
