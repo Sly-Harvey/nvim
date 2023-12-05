@@ -9,7 +9,8 @@ return {
         save_before_build = true, -- Save all buffers before building.
         parameters_file = 'build/neovim.json', -- JSON file to store information about selected target, run arguments and build type.
         default_parameters = { args = {}, build_type = 'Debug' }, -- The default values in `parameters_file`. Can also optionally contain `run_dir` with the working directory for applications.
-        build_dir = tostring(Path:new('{cwd}', 'build', '{os}-{build_type}')), -- Folder with samples. `samples` folder from the plugin directory is used by default.
+        --build_dir = tostring(Path:new('{cwd}', 'build', '{os}-{build_type}')), -- Folder with samples. `samples` folder from the plugin directory is used by default.
+        build_dir = tostring(Path:new('{cwd}', 'build')), -- Folder with samples. `samples` folder from the plugin directory is used by default.
         default_projects_path = tostring(Path:new(vim.loop.os_homedir(), 'Projects')), -- Default folder for creating project.
         configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' }, -- Default arguments that will be always passed at cmake configure step. By default tells cmake to generate `compile_commands.json`.
         build_args = {}, -- Default arguments that will be always passed at cmake build step.

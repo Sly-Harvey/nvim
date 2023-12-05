@@ -21,7 +21,7 @@ return {
 
     require("mason").setup()
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
+      ensure_installed = { "lua_ls", "rust_analyzer", "clangd" , "cmake", "swift_mesonls", "yamlls", "jsonls" },
     })
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -57,7 +57,15 @@ return {
       capabilities = capabilities,
     }
 
+    lspconfig.cmake.setup {
+      capabilities = capabilities,
+    }
+
     lspconfig.clangd.setup {
+      capabilities = capabilities,
+    }
+
+    lspconfig.omnisharp.setup {
       capabilities = capabilities,
     }
 
