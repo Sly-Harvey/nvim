@@ -31,9 +31,7 @@ rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.
 open neovim and run the command :Mason
 This will open the Mason menu. Here you can install lsp servers which are required for language support such as auto completions.
 You can install an lsp by highlighting an lsp from the list and press "i" to install it.
-For example if i program in rust then i would want to install the "rust-analyzer" lsp server.
-"clangd" for C++, "Pyright" for python etc.
-And if you are unsure which lsp to install, you can find the best one for the language that you use with a google search.
-An extra tip if you want to uninstall an lsp you can run the command MasonUninstall (lsp name)
+"cmake-language-server" for cmake, "Pyright" for python etc.
+An extra tip if you want to uninstall an lsp you can press Shift + X on an lsp to uninstall it
 
 **Hope you enjoy my configuration.**
