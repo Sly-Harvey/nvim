@@ -2,8 +2,9 @@ return {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
     dependencies = {
+      "chip/telescope-software-licenses.nvim",
+      "nvim-telescope/telescope-frecency.nvim",
       {
-        cmd = "Telescope",
         "ahmedkhalf/project.nvim",
         config = function()
           local project_nvim = require("project_nvim")
@@ -103,6 +104,8 @@ return {
             }
           }
         })
+        require('telescope').load_extension('frecency')
         require('telescope').load_extension('projects')
+        require("telescope").load_extension("software-licenses")
     end,
 }

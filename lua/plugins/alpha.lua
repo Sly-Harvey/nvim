@@ -22,34 +22,15 @@ return {
             end,
         })
         
-        -- check if the currunt operating system is windows
-        local system = package.config:sub(1,1)
-        local windows = '\\'
-        local unix = '/'
-        
-        if system == windows then
-            dashboard.section.buttons.val = {
-                dashboard.button("ff", "󰈞  Find file", ":Telescope find_files <CR>"),
-                dashboard.button("nf", "  New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("rf", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
-                dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
-                dashboard.button("cf", "  Configuration", ":e " .. "~\\appdata\\local\\nvim<CR>"),
-                --dashboard.button("cf", "  Configuration", ":e " .. os.getenv("homepath") .. "\\appdata\\local\\nvim<CR>"),
-                dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
-                dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
-            }
-        -- check if the currunt operating system is unix
-        elseif system == unix then
-            dashboard.section.buttons.val = {
-                dashboard.button("ff", "󰈞  Find file", ":Telescope find_files <CR>"),
-                dashboard.button("nf", "  New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("rf", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
-                dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
-                dashboard.button("cf", "  Configuration", ":e " .. "~/.config/nvim<CR>"),
-                dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
-                dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
-            }
-        end
+        dashboard.section.buttons.val = {
+            dashboard.button("ff", "󰈞  Find file", ":Telescope find_files <CR>"),
+            dashboard.button("fn", "  New file", ":ene <BAR> startinsert <CR>"),
+            dashboard.button("fr", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
+            dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
+            dashboard.button("cf", "  Configuration", ":e " .. vim.fn.stdpath("config") .. "<CR>"),
+            dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
+            dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
+        }
         
         
         

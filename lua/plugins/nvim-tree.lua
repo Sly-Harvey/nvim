@@ -1,8 +1,8 @@
 return {
   'nvim-tree/nvim-tree.lua',
-  cmd = { "NvimTreeFindFileToggle", "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFile", "NvimTreeCollapse", },
-  lazy = true,
-  init = function()
+  dependencies = {'nvim-tree/nvim-web-devicons'},
+  lazy = false,
+  config = function()
     require("nvim-tree").setup({
       sync_root_with_cwd = false,
       respect_buf_cwd = false,

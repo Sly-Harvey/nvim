@@ -1,6 +1,9 @@
-require("core.keymaps")
+require("util.functions")
 require("core.options")
 require("core.lazy")
+require("core.keymaps")
+
+vim.cmd("colorscheme vscode")
 
 -- disable semantic tokens
 vim.api.nvim_create_autocmd("LspAttach", {

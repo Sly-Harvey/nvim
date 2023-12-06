@@ -1,6 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
-  event = "ColorScheme",
+  event = "VeryLazy",
+  --dependencies = 'Mofiqul/vscode.nvim',
   config = function()
     require('lualine').setup({
       options = {

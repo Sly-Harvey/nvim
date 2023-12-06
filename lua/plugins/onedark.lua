@@ -1,6 +1,6 @@
 return {
     'navarasu/onedark.nvim',
-    lazy = true,
+    event = "UIEnter",
     config = function()
         require('onedark').setup  {
             -- Main options --
