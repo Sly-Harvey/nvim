@@ -14,6 +14,21 @@
     --  else return end
     --end
 
+function shell(args)
+  local output = vim.fn.system(args)
+  assert(vim.v.shell_error == 0, "External call failed with error code: " .. vim.v.shell_error .. "\n" .. output)
+end
+
+function ColorMyPencils(color)
+	color = color or "vscode"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+end
+
+--ColorMyPencils()
 
 function build_project()
     local runners = { rust = 'cargo build' }

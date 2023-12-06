@@ -1,7 +1,7 @@
 return {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = true,
+    event = "UIEnter",
     config = function()
         require("catppuccin").setup({
             flavour = "frappe", -- latte, frappe, macchiato, mocha

@@ -7,7 +7,7 @@
 return {
     'Mofiqul/vscode.nvim',
     priority = 1000,
-    lazy = false,
+    --event = "UIEnter",
     config = function()
         local c = require('vscode.colors').get_colors()
         require('vscode').setup({
@@ -39,6 +39,6 @@ return {
                 Comment = { fg = c.vscGreen, bg ='NONE', italic = true }
             }
         })
-        require('vscode').load()
+        --require('vscode').load()
     end
 }
