@@ -17,6 +17,7 @@ keymap('n', '<leader>cs', "<CMD>Telescope colorscheme<CR>", opts)
 keymap('n', '<leader>ff', "<CMD>Telescope find_files<CR>", opts)
 keymap('n', '<leader>fr', "<CMD>Telescope oldfiles<CR>", opts)
 keymap('n', '<leader>fg', "<CMD>Telescope live_grep<CR>", opts)
+keymap('n', '<leader>fz', "<CMD>Telescope current_buffer_fuzzy_find<CR>", opts)
 keymap('n', '<leader>fw', "<CMD>Telescope grep_string<CR>", opts)
 keymap('n', '<leader>fb', "<CMD>Telescope buffers<CR>", opts)
 keymap('n', '<leader>sl', "<CMD>Telescope software-licenses find<CR>", opts)
@@ -25,6 +26,14 @@ keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
 -- Fterm
 keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
 keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+
+-- Format
+keymap("n", "<leader>fm", function()
+  vim.lsp.buf.format { async = true }
+end, opts)
+
+-- Copy all
+keymap("n", "<C-c>a", "<cmd> %y+ <CR>", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
