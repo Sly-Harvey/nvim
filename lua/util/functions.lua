@@ -30,6 +30,12 @@ end
 
 --ColorMyPencils()
 
+
+function is_available(plugin)
+  local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
+  return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
+end
+
 function build_project()
     local runners = { rust = 'cargo build' }
   
