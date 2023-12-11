@@ -7,7 +7,7 @@ local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 
 -- Open url
-vim.keymap.set("n", "<leader>ou", "<esc>:URLOpenUnderCursor<cr>")
+keymap("n", "<leader>ou", "<esc>:URLOpenUnderCursor<cr>", opts)
 
 -- Nvim-Tree
 keymap('n', '<c-n>', ':NvimTreeFindFileToggle<CR>', opts)
@@ -42,8 +42,8 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- Window navigation
 keymap('n', '<leader>h', ':nohlsearch<CR>')
 keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j<CMD>startinsert<CR>", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
+--keymap("n", "<C-j>", "<C-w>j<CMD>startinsert<CR>", opts)
+--keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Move text up and down
