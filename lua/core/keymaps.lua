@@ -4,7 +4,26 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 local keymap = vim.keymap.set
 
 local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
+--local term_opts = { silent = true }
+
+keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", { noremap = false, silent = true })
+--vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Lsp
+keymap("n", "<leader>gd", vim.lsp.buf.definition, opts)
+keymap("n", "<leader>gr", vim.lsp.buf.references, opts)
+keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
+keymap("n", "K", vim.lsp.buf.hover, opts)
+keymap("n", "J", vim.lsp.buf.code_action, opts)
+keymap("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
+keymap("n", "<leader>of", vim.diagnostic.open_float, opts)
+keymap("n", "[d", vim.diagnostic.goto_next, opts)
+keymap("n", "]d", vim.diagnostic.goto_prev, opts)
+keymap("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+keymap("n", "<leader>fm", function()
+  vim.lsp.buf.format { async = true }
+end, opts)
 
 -- Open url
 keymap("n", "<leader>ou", "<esc>:URLOpenUnderCursor<cr>", opts)
@@ -26,11 +45,6 @@ keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
 -- Fterm
 keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
 keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
-
--- Format
-keymap("n", "<leader>fm", function()
-  vim.lsp.buf.format { async = true }
-end, opts)
 
 -- Copy all
 keymap("n", "<C-c>a", "<cmd> %y+ <CR>", opts)
