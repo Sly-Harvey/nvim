@@ -12,10 +12,10 @@ return {
     -- Configure code warnings such as unused variables
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-      signs = true, -- False to disable code warnings.
-      virtual_text = true, -- False to disable code warnings.
+      signs = true, -- False to disable sign icons.
+      virtual_text = true, -- False to disable virtual_text.
       underline = false, -- False to disable code warnings.
-      update_in_insert = true, -- False to disable code warnings.
+      update_in_insert = true,
     }
     )
 
@@ -29,7 +29,7 @@ return {
 
     local saga = require("lspsaga")
     saga.init_lsp_saga = {
-      code_action_prompt = { enable = true, }, 
+      code_action_prompt = { enable = true, },
     }
 
     --vim.keymap.set("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
