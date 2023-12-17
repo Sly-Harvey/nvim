@@ -1,10 +1,10 @@
+local util = require("util")
 require("core.options")
-require("util.functions")
 require("core.lazy")
 require("core.keymaps")
 
 vim.cmd("colorscheme everforest")
-ColorMyPencils("everforest")
+util.ColorMyPencils("everforest")
 
 local autocmd = vim.api.nvim_create_autocmd
 
