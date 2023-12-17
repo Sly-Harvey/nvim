@@ -1,9 +1,10 @@
-require("util.functions")
 require("core.options")
+require("util.functions")
 require("core.lazy")
 require("core.keymaps")
 
-vim.cmd("colorscheme vscode")
+vim.cmd("colorscheme everforest")
+ColorMyPencils("everforest")
 
 local autocmd = vim.api.nvim_create_autocmd
 
