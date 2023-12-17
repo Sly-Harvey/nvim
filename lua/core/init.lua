@@ -3,12 +3,21 @@ require("core.options")
 require("core.lazy")
 require("core.keymaps")
 
-vim.cmd("colorscheme everforest")
-util.ColorMyPencils("everforest")
-
 local autocmd = vim.api.nvim_create_autocmd
-
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
+
+local colorscheme = "everforest"
+
+vim.cmd("colorscheme " .. colorscheme)
+util.ColorMyPencils(colorscheme)
+
+-- set additional transparent ui elements for specific colorschemes
+autocmd({ "ColorScheme" }, {
+  pattern = { "everforest" },
+  callback = function()
+    util.ColorMyPencils(colorscheme)
+  end
+})
 
 -- disable semantic tokens
 autocmd("LspAttach", {
