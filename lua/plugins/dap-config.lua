@@ -34,9 +34,10 @@ return {
       config = true
     },
   },
-    
+
   config = function()
     local dap, dapui = require("dap"), require("dapui")
+    local util = require("util")
 
     dapui.setup()
     dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -50,15 +51,15 @@ return {
       dapui.close()
       dap.repl.close()
     end
-    
+
     -- default rust debug code:
     --program = function()
     --  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
     --end,
-    
+
     --$CWD_FULL/target/debug/$CWD
-    
-    
+
+
     dap.configurations.rust= {
       {
         name = "Debug",
@@ -83,7 +84,7 @@ return {
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
     
         program = function()
-          sleep(0.1)
+          util.sleep(0.1)
           return "${file}";
         end, -- This configuration will launch the current file if used.
         pythonPath = 'python',
@@ -91,7 +92,7 @@ return {
         console = 'integratedTerminal'
       },
     }
-    
+
     --vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
     --vim.keymap.set("n", "<Leader>dx", function() dap.terminate() end)
     vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
@@ -106,7 +107,7 @@ return {
       --dap.repl.close()
     end)
     
-    vim.keymap.set('n', '<C-b>', build_project)
+    vim.keymap.set('n', '<C-b>', util.build_project)
 
     vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F5>', function()
       if vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
@@ -119,7 +120,7 @@ return {
                 require('FTerm').close()
                 require("nvim-tree.api").tree.close()
                 vim.cmd('startinsert')
-                sleep(0.05)
+                util.sleep(0.05)
                 vim.cmd("CMake build_and_debug")
                 dap.repl.close()
               else
@@ -132,7 +133,7 @@ return {
         require('FTerm').close()
         require("nvim-tree.api").tree.close()
         vim.cmd('startinsert')
-        sleep(0.05)
+        util.sleep(0.05)
         dap.continue()
       end
     end)
