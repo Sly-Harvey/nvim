@@ -18,14 +18,14 @@ return {
     },
     {
       'Weissle/persistent-breakpoints.nvim',
-      config = function ()
+      config = function()
         require('persistent-breakpoints').setup({
           save_dir = vim.fn.stdpath('data') .. '/breakpoints',
-          load_breakpoints_event = { "BufReadPost" } 
+          load_breakpoints_event = { "BufReadPost" }
         })
       end
     },
-    {"dnlhc/glance.nvim", cmd = "Glance"},
+    { "dnlhc/glance.nvim", cmd = "Glance" },
     'tpope/vim-sleuth',
     { "folke/neodev.nvim", opts = {} },
     'mfussenegger/nvim-dap',
@@ -60,7 +60,7 @@ return {
     --$CWD_FULL/target/debug/$CWD
 
 
-    dap.configurations.rust= {
+    dap.configurations.rust = {
       {
         name = "Debug",
         type = "codelldb",
@@ -73,16 +73,16 @@ return {
         showDisassembly = "never"
       },
     }
-    
+
     dap.configurations.python = {
       {
         -- The first three options are required by nvim-dap
-        name = "Debug";
-        type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-        request = 'launch';
-    
+        name = "Debug",
+        type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+        request = 'launch',
+
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-    
+
         program = function()
           util.sleep(0.1)
           return "${file}";
@@ -95,21 +95,21 @@ return {
 
     --vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
     --vim.keymap.set("n", "<Leader>dx", function() dap.terminate() end)
-    vim.keymap.set({'n', 'i', 'v', 'x'}, '<F17>', function()
+    vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<F17>', function()
       vim.cmd('stopinsert')
       dap.terminate()
       --dap.repl.close()
     end)
 
-    vim.keymap.set({'n', 'i', 'v', 'x'}, '<S-F5>', function()
+    vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<S-F5>', function()
       vim.cmd('stopinsert')
       dap.terminate()
       --dap.repl.close()
     end)
-    
+
     vim.keymap.set('n', '<C-b>', util.build_project)
 
-    vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F5>', function()
+    vim.keymap.set({ 'n', 'i', 'v', 'x', 't' }, '<F5>', function()
       if vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
         local job = require('cmake').configure()
         if job then
@@ -117,7 +117,7 @@ return {
             function(_, exit_code)
               if exit_code == 0 then
                 vim.cmd("CMake select_target")
-                require('FTerm').close()
+                -- require('FTerm').close()
                 require("nvim-tree.api").tree.close()
                 vim.cmd('startinsert')
                 util.sleep(0.05)
@@ -130,15 +130,16 @@ return {
           ))
         end
       else
-        require('FTerm').close()
+        -- require("toggleterm").exec('exit')
+        -- require('FTerm').close()
         require("nvim-tree.api").tree.close()
         vim.cmd('startinsert')
         util.sleep(0.05)
         dap.continue()
       end
     end)
-    --vim.keymap.set({'n', 'i', 'v', 'x', 't'}, '<F6>', run_release)
-    vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("FTerm").close()<CR>', opts)
+    vim.keymap.set({ 'n', 'i', 'v', 'x', 't' }, '<F6>', util.run_release)
+    -- vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").close()<CR>', opts)
     vim.keymap.set('n', '<Leader>dt', function() dapui.toggle() end)
     vim.keymap.set('n', '<F10>', function() dap.step_over() end)
     vim.keymap.set('n', '<F11>', function() dap.step_into() end)
@@ -151,10 +152,10 @@ return {
     vim.keymap.set('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
     vim.keymap.set('n', '<Leader>dr', function() dap.repl.open() end)
     vim.keymap.set('n', '<Leader>dl', function() dap.run_last() end)
-    vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
       require('dap.ui.widgets').hover()
     end)
-    vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
       require('dap.ui.widgets').preview()
     end)
     vim.keymap.set('n', '<Leader>df', function()
