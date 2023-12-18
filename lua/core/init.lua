@@ -155,8 +155,12 @@ if vim.fn.has("toggleterm") then
         require("toggleterm").toggle()
         vim.cmd("stopinsert")
         vim.cmd("wincmd k")
-        require("nvim-tree.api").tree.close()
-        require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+        if vim.fn.has("nvim-tree") then
+          if util.auto_open_nvimtree == true then
+            require("nvim-tree.api").tree.close()
+            require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+          end
+        end
         vim.cmd("wincmd k")
       end
     })
