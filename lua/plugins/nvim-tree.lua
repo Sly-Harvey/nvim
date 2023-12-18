@@ -1,25 +1,26 @@
 return {
   'nvim-tree/nvim-tree.lua',
-  dependencies = {'nvim-tree/nvim-web-devicons'},
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   lazy = false,
   config = function()
+    local util = require("util")
     require("nvim-tree").setup({
       sync_root_with_cwd = false,
-      respect_buf_cwd = false,
+      respect_buf_cwd = true,
       update_focused_file = {
         enable = true,
         --update_root = true
       },
       actions = {
         open_file = {
-          quit_on_open = false,
+          quit_on_open = not util.auto_open_nvimtree,
         },
       },
       git = {
-      enable = true,
+        enable = true,
       },
       view = {
-        adaptive_size = true,
+        adaptive_size = false,
         preserve_window_proportions = true,
         side = "left",
         signcolumn = "no",
@@ -29,7 +30,7 @@ return {
       },
       filters = {
         git_ignored = false, -- Show all .gitignore files
-        dotfiles = false, -- Show all dotfiles
+        dotfiles = false,    -- Show all dotfiles
       },
     })
   end,

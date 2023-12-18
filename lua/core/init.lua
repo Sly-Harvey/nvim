@@ -128,8 +128,8 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
-if util.auto_open_toggleterm == true then
-  if vim.fn.has("toggleterm") then
+if vim.fn.has("toggleterm") then
+  if util.auto_open_toggleterm == true then
     -- auto open toggleterm
     autocmd({ "BufWinEnter" }, {
       group = vim.api.nvim_create_augroup("toggleterm", { clear = true }),
@@ -154,37 +154,33 @@ if util.auto_open_toggleterm == true then
         -- open the tree and find the file
         require("toggleterm").toggle()
         vim.cmd("stopinsert")
+        vim.cmd("wincmd k")
+        require("nvim-tree.api").tree.close()
+        require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+        vim.cmd("wincmd k")
       end
     })
   end
 end
 
-if vim.fn.has("nvim-tree") then
-  if util.auto_open_nvimtree == true then
-    -- auto open nvim-tree
-    autocmd({ "BufWinEnter" }, {
-      group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+-- auto open nvim-tree from alpha.nvim
+autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+  once = true,
+  pattern = "alpha",
+  callback = function()
+    autocmd("BufWinEnter", {
       once = true,
       pattern = "*.*",
-      callback = function(data)
-        -- buffer is help
-        local is_help = vim.bo[data.buf].buftype == "help"
-
-        -- buffer is a real file on the disk
-        local real_file = vim.fn.filereadable(data.file) == 1
-
-        -- buffer is a [No Name]
-        local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-        if not real_file and not no_name then
-          return
-        elseif is_help then
-          return
+      callback = function()
+        if vim.fn.has("nvim-tree") then
+          if util.auto_open_nvimtree == true and util.auto_open_toggleterm == false then
+            require("nvim-tree.api").tree.close()
+            require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+            -- vim.cmd("wincmd l")
+          end
         end
-
-        -- open the tree and find the file
-        require("nvim-tree.api").tree.open({ find_file = true, focus = true, update_root = true })
-      end
+      end,
     })
-  end
-end
+  end,
+})
