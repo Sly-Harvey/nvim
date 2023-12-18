@@ -1,21 +1,23 @@
-local util = require("util")
 require("core.options")
 require("core.lazy")
 require("core.keymaps")
 
+local util = require("util")
+
 local autocmd = vim.api.nvim_create_autocmd
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
+vim.api.nvim_create_augroup("terminal_settings", { clear = true })
 
-local colorscheme = "everforest"
-
-vim.cmd("colorscheme " .. colorscheme)
-util.ColorMyPencils(colorscheme)
+vim.cmd("colorscheme " .. util.colorscheme)
+if util.colorscheme == "everforest" then
+  util.ColorMyPencils(util.colorscheme)
+end
 
 -- set additional transparent ui elements for specific colorschemes
 autocmd({ "ColorScheme" }, {
   pattern = { "everforest" },
   callback = function()
-    util.ColorMyPencils(colorscheme)
+    util.ColorMyPencils(util.colorscheme)
   end
 })
 
@@ -35,6 +37,13 @@ autocmd({ "ColorScheme" }, {
     vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
     vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
   end
+})
+
+autocmd("BufEnter", {
+  pattern = "term://*",
+  group = "terminal_settings",
+  desc = "Start terminal in insert mode",
+  callback = function() vim.cmd("startinsert") end,
 })
 
 -- Return to last edit position when opening files
@@ -119,28 +128,63 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
--- auto open nvim-tree
---autocmd({"BufWinEnter"}, {
---    group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
---    once = true,
---    pattern = "*.*",
---    callback = function(data)
---      -- buffer is help
---      local is_help = vim.bo[data.buf].buftype == "help"
---
---      -- buffer is a real file on the disk
---      local real_file = vim.fn.filereadable(data.file) == 1
---
---      -- buffer is a [No Name]
---      local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
---
---      if not real_file and not no_name then
---        return
---      elseif is_help then
---        return
---      end
---
---      -- open the tree and find the file
---      require("nvim-tree.api").tree.open({ find_file = true, focus = true, update_root = true })
---    end
---  })
+if util.auto_open_toggleterm == true then
+  if vim.fn.has("toggleterm") then
+    -- auto open toggleterm
+    autocmd({ "BufWinEnter" }, {
+      group = vim.api.nvim_create_augroup("toggleterm", { clear = true }),
+      once = true,
+      pattern = "*.*",
+      callback = function(data)
+        -- buffer is help
+        local is_help = vim.bo[data.buf].buftype == "help"
+
+        -- buffer is a real file on the disk
+        local real_file = vim.fn.filereadable(data.file) == 1
+
+        -- buffer is a [No Name]
+        local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+        if not real_file and not no_name then
+          return
+        elseif is_help then
+          return
+        end
+
+        -- open the tree and find the file
+        require("toggleterm").toggle()
+        vim.cmd("stopinsert")
+      end
+    })
+  end
+end
+
+if vim.fn.has("nvim-tree") then
+  if util.auto_open_nvimtree == true then
+    -- auto open nvim-tree
+    autocmd({ "BufWinEnter" }, {
+      group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+      once = true,
+      pattern = "*.*",
+      callback = function(data)
+        -- buffer is help
+        local is_help = vim.bo[data.buf].buftype == "help"
+
+        -- buffer is a real file on the disk
+        local real_file = vim.fn.filereadable(data.file) == 1
+
+        -- buffer is a [No Name]
+        local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+        if not real_file and not no_name then
+          return
+        elseif is_help then
+          return
+        end
+
+        -- open the tree and find the file
+        require("nvim-tree.api").tree.open({ find_file = true, focus = true, update_root = true })
+      end
+    })
+  end
+end

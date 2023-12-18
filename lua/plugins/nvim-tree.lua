@@ -12,14 +12,14 @@ return {
       },
       actions = {
         open_file = {
-          quit_on_open = true,
+          quit_on_open = false,
         },
       },
       git = {
       enable = true,
       },
       view = {
-        adaptive_size = false,
+        adaptive_size = true,
         preserve_window_proportions = true,
         side = "left",
         signcolumn = "no",

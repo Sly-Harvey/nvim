@@ -1,5 +1,9 @@
 local M = {}
 
+M.auto_open_nvimtree = false
+M.auto_open_toggleterm = false
+M.colorscheme = "everforest"
+
 function M.extend_tbl(default, opts)
   opts = opts or {}
   return default and vim.tbl_deep_extend("force", default, opts) or opts
@@ -14,10 +18,10 @@ function M.is_available(plugin)
   return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
 end
 
-function M.sleep(a) 
-  local sec = tonumber(os.clock() + a); 
-  while (os.clock() < sec) do 
-  end 
+function M.sleep(a)
+  local sec = tonumber(os.clock() + a);
+  while (os.clock() < sec) do
+  end
 end
 
 function M.shell(cmd, show_error)
@@ -32,12 +36,11 @@ function M.shell(cmd, show_error)
 end
 
 function M.ColorMyPencils(color)
-	color = color or "vscode"
-	vim.cmd.colorscheme(color)
+  color = color or "vscode"
+  vim.cmd.colorscheme(color)
 
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 function M.build_project()
@@ -46,7 +49,7 @@ function M.build_project()
   local buf = vim.api.nvim_buf_get_name(0)
   local ftype = vim.filetype.match({ filename = buf })
   if runners[ftype] ~= nil then
-    require('FTerm').run({ runners[ftype] })
+    require('toggleterm').exec(runners[ftype])
   elseif vim.fn.empty(vim.fn.glob("CMakeLists.txt")) == 0 then
     local job = require('cmake').configure()
     if job then
@@ -67,18 +70,16 @@ function M.build_project()
 end
 
 function M.run_release()
--- Code Runner - execute commands in a floating terminal
-local interpreted = { lua = 'lua', javascript = 'node', python = 'python' }
-local compiled = { rust = 'cargo run -r', }
-
-local buf = vim.api.nvim_buf_get_name(0)
-local ftype = vim.filetype.match({ filename = buf })
-local exec = nil
-if compiled[ftype] ~= nil then
-    require('FTerm').run({ compiled[ftype] })
-elseif interpreted[ftype] ~= nil then
-    require('FTerm').run({ interpreted[ftype], buf })
-else return end
+  -- Code Runner - execute commands in a floating terminal
+  local interpreted = { lua = 'lua', javascript = 'node', python = 'python' }
+  local compiled = { rust = 'cargo run -r', }
+  local buf = vim.api.nvim_buf_get_name(0)
+  local ftype = vim.filetype.match({ filename = buf })
+  if compiled[ftype] ~= nil then
+    require('toggleterm').exec(compiled[ftype])
+  elseif interpreted[ftype] ~= nil then
+    require('toggleterm').exec(interpreted[ftype] .. " " .. buf)
+  end
 end
 
 return M

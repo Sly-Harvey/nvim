@@ -5,11 +5,11 @@ return {
         match_visible_only = false,
     },
     keys = {
-        {"<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "i"}},
-        {"<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "i"}},
-        {"<C-j>", "<Cmd>MultipleCursorsAddDown<CR>"},
-        {"<C-k>", "<Cmd>MultipleCursorsAddUp<CR>"},
-        {"<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}},
+        {"<CA-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "i"}},
+        {"<CA-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "i"}},
+        {"<CA-j>", "<Cmd>MultipleCursorsAddDown<CR>"},
+        {"<CA-k>", "<Cmd>MultipleCursorsAddUp<CR>"},
+        {"<CA-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}},
         {"<Leader>a", "<Cmd>MultipleCursorsAddToWordUnderCursor<CR>", mode = {"n", "v"}},
     },
 }

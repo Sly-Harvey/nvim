@@ -6,8 +6,8 @@
 
 For a full list of plugins, visit https://dotfyle.com/Sly-Harvey/nvim
 
-<img src="images/vscode-theme1.png" width=800>
-<img src="images/vscode-theme2.png" width=800>
+<img src="images/everforest1.png" width=800>
+<img src="images/everforest2.png" width=800>
 
 **Before installing, A nerd font is required to see all the icons inside neovim.**
 **the nerd font that I recommend is [JetBrainsMono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip)**

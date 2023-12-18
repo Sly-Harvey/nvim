@@ -4,7 +4,7 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 local keymap = vim.keymap.set
 
 local opts = { noremap = true, silent = true }
---local term_opts = { silent = true }
+local term_opts = { silent = true }
 
 keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", { noremap = false, silent = true })
 --vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
@@ -42,9 +42,13 @@ keymap('n', '<leader>fb', "<CMD>Telescope buffers<CR>", opts)
 keymap('n', '<leader>sl', "<CMD>Telescope software-licenses find<CR>", opts)
 keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
 
+-- ToggleTerm
+-- Stop code execution and close toggleterm with Ctrl + c
+vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
+
 -- Fterm
-keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
-keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+-- keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
+-- keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- Copy all
 keymap("n", "<C-c>a", "<cmd> %y+ <CR>", opts)
@@ -55,10 +59,22 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Window navigation
 keymap('n', '<leader>h', ':nohlsearch<CR>')
-keymap("n", "<C-h>", "<C-w>h", opts)
---keymap("n", "<C-j>", "<C-w>j<CMD>startinsert<CR>", opts)
---keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<C-w><C-h>", opts)
+keymap("n", "<C-j>", "<C-w><C-j><CMD>startinsert<CR>", opts)
+keymap("n", "<C-k>", "<C-w><C-k>", opts)
+keymap("n", "<C-l>", "<C-w><C-l>", opts)
+
+-- Terminal (horizontal)
+keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
+keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
+keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap("t", "<C-k>", "<C-\\><C-N><C-w>k<C-w>l", term_opts)
+
+-- Resize with arrows
+keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Move text up and down
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
