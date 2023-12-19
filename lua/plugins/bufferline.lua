@@ -1,7 +1,7 @@
 return {
   'akinsho/bufferline.nvim',
   version = "*",
-  event = "BufAdd", --WinNew
+  event = "BufReadPre", --WinNew
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     local status, bufferline = pcall(require, "bufferline")
