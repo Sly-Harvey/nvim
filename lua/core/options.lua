@@ -1,8 +1,8 @@
 local opt = vim.opt
 local util = require("util")
 
-util.auto_open_nvimtree = true
-util.auto_open_toggleterm = true
+util.auto_open_nvimtree = false
+util.auto_open_toggleterm = false
 util.colorscheme = "everforest"
 
 vim.g.mapleader = " "

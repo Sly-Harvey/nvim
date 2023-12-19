@@ -167,24 +167,24 @@ if vim.fn.has("toggleterm") then
   end
 end
 
--- auto open nvim-tree from alpha.nvim
-autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
-  once = true,
-  pattern = "alpha",
-  callback = function()
-    autocmd("BufWinEnter", {
-      once = true,
-      pattern = "*.*",
-      callback = function()
-        if vim.fn.has("nvim-tree") then
-          if util.auto_open_nvimtree == true and util.auto_open_toggleterm == false then
+if util.auto_open_nvimtree == true and util.auto_open_toggleterm == false then
+  -- auto open nvim-tree from alpha.nvim
+  autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+    once = true,
+    pattern = "alpha",
+    callback = function()
+      autocmd("BufWinEnter", {
+        once = true,
+        pattern = "*.*",
+        callback = function()
+          if vim.fn.has("nvim-tree") then
             require("nvim-tree.api").tree.close()
             require("nvim-tree.api").tree.find_file({ open = true, focus = false })
             -- vim.cmd("wincmd l")
           end
-        end
-      end,
-    })
-  end,
-})
+        end,
+      })
+    end,
+  })
+end
