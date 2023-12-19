@@ -32,8 +32,6 @@ return {
             dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
         }
 
-
-
         -- define startup ascii art here.
         --dashboard.section.header.val = {  }
 

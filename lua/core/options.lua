@@ -6,6 +6,7 @@ util.auto_open_toggleterm = false
 util.colorscheme = "everforest"
 
 vim.g.mapleader = " "
+vim.g.max_file = { size = 1024 * 100, lines = 10000 } -- 100 KB
 
 opt.guicursor = ""
 
@@ -19,9 +20,11 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
+opt.fileencoding = "utf-8"
 opt.fillchars = { eob = " " }
 
 opt.ignorecase = true
+opt.infercase = true
 opt.smartcase = true
 
 opt.wrap = false
@@ -44,8 +47,8 @@ opt.isfname:append("@-@")
 -- go to previous/next line with h,l,left arrow and right arrow
 --opt.whichwrap:append "<>[]hl"
 
-opt.lazyredraw = false
-opt.updatetime = 250
-opt.timeoutlen = 300
+opt.lazyredraw = true
+opt.updatetime = 300
+opt.timeoutlen = 450
 
 --opt.colorcolumn = "80"

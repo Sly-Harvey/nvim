@@ -3,23 +3,23 @@ return {
     opts = {
         toggler = {
             ---Line-comment toggle keymap
-            line = 'cl',
+            line = '<leader>cl',
             ---Block-comment toggle keymap
-            block = 'cb',
+            block = '<leader>cb',
         }, -- add any options here
         opleader = {
             ---Line-comment keymap
-            line = 'cl',
+            line = '<leader>cl',
             ---Block-comment keymap
-            block = 'cb',
+            block = '<leader>cb',
         },
         extra = {
             ---Add comment on the line above
-            above = 'clO',
+            above = '<leader>clO',
             ---Add comment on the line below
-            below = 'clo',
+            below = '<leader>clo',
             ---Add comment at the end of line
-            eol = 'cla',
+            eol = '<leader>cla',
         },
     },
     lazy = false,

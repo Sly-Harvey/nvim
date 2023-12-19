@@ -25,6 +25,17 @@ keymap("n", "<leader>fm", function()
   vim.lsp.buf.format { async = true }
 end, opts)
 
+-- Hop
+if vim.fn.has("Hop") then
+  keymap('', '<leader>f', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })<CR>", opts)
+  keymap('', '<leader>F', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })<CR>", opts)
+  keymap('', '<leader>t', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }<CR>)", opts)
+  keymap('', '<leader>T', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<CR>", opts)
+  keymap('', '<leader>hw', "<CMD>lua require('hop').hint_words()<CR>", opts)
+  keymap('', '<leader>hc', "<CMD>lua require('hop').hint_char2()<CR>", opts)
+  keymap('', '<leader>gl', "<CMD>lua require('hop').hint_lines_skip_whitespace()<CR>", opts)
+end
+
 -- Open url
 keymap("n", "<leader>ou", "<esc>:URLOpenUnderCursor<cr>", opts)
 
