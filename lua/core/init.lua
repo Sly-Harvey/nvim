@@ -5,8 +5,9 @@ require("core.keymaps")
 local util = require("util")
 
 local autocmd = vim.api.nvim_create_autocmd
-vim.api.nvim_create_augroup('bufcheck', { clear = true })
-vim.api.nvim_create_augroup("terminal_settings", { clear = true })
+local augroup = vim.api.nvim_create_augroup
+augroup('bufcheck', { clear = true })
+augroup("terminal_settings", { clear = true })
 
 vim.cmd("colorscheme " .. util.colorscheme)
 if util.colorscheme == "everforest" then
@@ -19,6 +20,16 @@ autocmd({ "ColorScheme" }, {
   callback = function()
     util.ColorMyPencils(util.colorscheme)
   end
+})
+
+autocmd("BufReadPre", {
+  desc = "Disable certain functionality on very large files",
+  group = augroup("large_buf", { clear = true }),
+  callback = function(args)
+    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+    vim.b[args.buf].large_buf = (ok and stats and stats.size > vim.g.max_file.size)
+      or vim.api.nvim_buf_line_count(args.buf) > vim.g.max_file.lines
+  end,
 })
 
 -- disable semantic tokens
@@ -61,7 +72,7 @@ autocmd('BufReadPost', {
 
 -- Highlight when yanking
 autocmd('TextYankPost', {
-  group = vim.api.nvim_create_augroup('HighlightYank', {}),
+  group = augroup('HighlightYank', {}),
   pattern = '*',
   callback = function()
     vim.highlight.on_yank({
@@ -73,7 +84,7 @@ autocmd('TextYankPost', {
 
 -- resize splits if window got resized
 autocmd({ "VimResized" }, {
-  group = vim.api.nvim_create_augroup('resize_splits', { clear = true }),
+  group = augroup('resize_splits', { clear = true }),
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
@@ -83,7 +94,7 @@ autocmd({ "VimResized" }, {
 
 -- close with q
 autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("close-with-q", { clear = true }),
+  group = augroup("close-with-q", { clear = true }),
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -108,7 +119,7 @@ autocmd("FileType", {
 
 -- wrap and check for spell in text filetypes
 autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("wrap_spell", { clear = true }),
+  group = augroup("wrap_spell", { clear = true }),
   pattern = { "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
@@ -118,7 +129,7 @@ autocmd("FileType", {
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 autocmd({ "BufWritePre" }, {
-  group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
+  group = augroup("auto_create_dir", { clear = true }),
   callback = function(event)
     if event.match:match("^%w%w+://") then
       return
@@ -132,7 +143,7 @@ if vim.fn.has("toggleterm") then
   if util.auto_open_toggleterm == true then
     -- auto open toggleterm
     autocmd({ "BufWinEnter" }, {
-      group = vim.api.nvim_create_augroup("toggleterm", { clear = true }),
+      group = augroup("toggleterm", { clear = true }),
       once = true,
       pattern = "*.*",
       callback = function(data)
@@ -170,7 +181,7 @@ end
 if util.auto_open_nvimtree == true and util.auto_open_toggleterm == false then
   -- auto open nvim-tree from alpha.nvim
   autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("nvim_tree", { clear = true }),
+    group = augroup("nvim_tree", { clear = true }),
     once = true,
     pattern = "alpha",
     callback = function()
