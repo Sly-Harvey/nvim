@@ -21,7 +21,7 @@ return {
       start_in_insert = true,
       open_mapping = [[<M-f>]],
       shading_factor = 2,
-      direction = "horizontal",
+      direction = "horizontal", -- Options: horizontal, float, vertical, tab
       float_opts = { border = "rounded", width = 155, height = 35 },
     },
   }
