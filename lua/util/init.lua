@@ -1,8 +1,13 @@
 local M = {}
 
-M.auto_open_nvimtree = false
-M.auto_open_toggleterm = false
-M.colorscheme = "everforest"
+function M.on_very_lazy(fn)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+      fn()
+    end,
+  })
+end
 
 function M.extend_tbl(default, opts)
   opts = opts or {}
@@ -57,7 +62,7 @@ function M.build_project()
         function(_, exit_code)
           if exit_code == 0 then
             vim.cmd("CMake select_target")
-            vim.cmd("CMake build")
+            require('toggleterm').exec("cmake --build build")
           else
             vim.notify("Target build failed", vim.log.levels.ERROR, { title = 'CMake' })
           end

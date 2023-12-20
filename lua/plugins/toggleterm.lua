@@ -1,3 +1,7 @@
+local direction = "float"
+
+if vim.g.auto_open_toggleterm == true then direction = "horizontal" end
+
 return {
   "akinsho/toggleterm.nvim",
   event = { "BufReadPost", "UIEnter", "BufNewFile" },
@@ -27,7 +31,7 @@ return {
     start_in_insert = true,
     open_mapping = [[<M-f>]],
     shading_factor = 2,
-    direction = "float",   -- Options: horizontal, float, vertical, tab
+    direction = direction,   -- Options: horizontal, float, vertical, tab
     float_opts = { border = "rounded", width = 155, height = 35 },
   },
 }

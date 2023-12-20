@@ -55,7 +55,7 @@ keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
 
 -- ToggleTerm
 -- Stop code execution and close toggleterm with Ctrl + c
-vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
+-- vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
 
 -- Fterm
 -- keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
