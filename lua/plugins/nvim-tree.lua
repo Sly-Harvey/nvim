@@ -13,7 +13,7 @@ return {
       },
       actions = {
         open_file = {
-          quit_on_open = not util.auto_open_nvimtree,
+          quit_on_open = not vim.g.auto_open_nvimtree,
         },
       },
       git = {

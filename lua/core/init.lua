@@ -9,18 +9,19 @@ local augroup = vim.api.nvim_create_augroup
 augroup('bufcheck', { clear = true })
 augroup("terminal_settings", { clear = true })
 
-vim.cmd("colorscheme " .. util.colorscheme)
-if util.colorscheme == "everforest" then
-  util.ColorMyPencils(util.colorscheme)
+vim.cmd("colorscheme " .. vim.g.colorscheme)
+if vim.g.colorscheme == "everforest" and vim.g.everforest_transparent == true then
+  util.ColorMyPencils(vim.g.colorscheme)
 end
 
--- set additional transparent ui elements for specific colorschemes
-autocmd({ "ColorScheme" }, {
-  pattern = { "everforest" },
-  callback = function()
-    util.ColorMyPencils(util.colorscheme)
-  end
-})
+if vim.g.everforest_transparent == true then
+  autocmd({ "ColorScheme" }, {
+    pattern = { "everforest" },
+    callback = function()
+      util.ColorMyPencils(vim.g.colorscheme)
+    end
+  })
+end
 
 autocmd("BufReadPre", {
   desc = "Disable certain functionality on very large files",
@@ -28,7 +29,7 @@ autocmd("BufReadPre", {
   callback = function(args)
     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(args.buf))
     vim.b[args.buf].large_buf = (ok and stats and stats.size > vim.g.max_file.size)
-      or vim.api.nvim_buf_line_count(args.buf) > vim.g.max_file.lines
+        or vim.api.nvim_buf_line_count(args.buf) > vim.g.max_file.lines
   end,
 })
 
@@ -140,10 +141,10 @@ autocmd({ "BufWritePre" }, {
 })
 
 if vim.fn.has("toggleterm") then
-  if util.auto_open_toggleterm == true then
+  if vim.g.auto_open_toggleterm == true then
     -- auto open toggleterm
     autocmd({ "BufWinEnter" }, {
-      group = augroup("toggleterm", { clear = true }),
+      group = augroup("toggleterm_auto", { clear = true }),
       once = true,
       pattern = "*.*",
       callback = function(data)
@@ -165,23 +166,28 @@ if vim.fn.has("toggleterm") then
         -- open the tree and find the file
         require("toggleterm").toggle()
         vim.cmd("stopinsert")
-        vim.cmd("wincmd k")
+        -- vim.cmd("wincmd k")
         if vim.fn.has("nvim-tree") then
-          if util.auto_open_nvimtree == true then
+          if vim.g.auto_open_nvimtree == true then
             require("nvim-tree.api").tree.close()
             require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+            vim.schedule(function()
+              vim.cmd "wincmd l"
+              vim.cmd("wincmd k")
+              vim.cmd("stopinsert")
+            end)
           end
         end
-        vim.cmd("wincmd k")
+        -- vim.cmd("wincmd k")
       end
     })
   end
 end
 
-if util.auto_open_nvimtree == true and util.auto_open_toggleterm == false then
+if vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == false then
   -- auto open nvim-tree from alpha.nvim
   autocmd("FileType", {
-    group = augroup("nvim_tree", { clear = true }),
+    group = augroup("nvimtree_auto", { clear = true }),
     once = true,
     pattern = "alpha",
     callback = function()
