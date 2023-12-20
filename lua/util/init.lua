@@ -63,6 +63,7 @@ function M.build_project()
           if exit_code == 0 then
             vim.cmd("CMake select_target")
             require('toggleterm').exec("cmake --build build")
+            vim.cmd("LspRestart")
           else
             vim.notify("Target build failed", vim.log.levels.ERROR, { title = 'CMake' })
           end

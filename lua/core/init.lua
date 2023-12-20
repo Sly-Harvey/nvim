@@ -51,8 +51,8 @@ autocmd({ "ColorScheme" }, {
   end
 })
 
-autocmd("BufEnter", {
-  pattern = "term://*",
+autocmd("TermEnter", {
+  pattern = "*",
   group = "terminal_settings",
   desc = "Start terminal in insert mode",
   callback = function() vim.cmd("startinsert") end,
