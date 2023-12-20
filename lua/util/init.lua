@@ -87,4 +87,24 @@ function M.run_release()
   end
 end
 
+function M.close_all_terminals()
+  if vim.fn.has("toggleterm") then
+    -- local lazy = require("toggleterm.lazy")
+    local terms = require("toggleterm.terminal")
+    -- local ui = lazy.require("toggleterm.ui")
+    local terminals = terms.get_all()
+
+    -- local _, term = terms.identify()
+    -- if term:is_split() then
+    --   term:close()
+    -- end
+
+    for _, term_num in pairs(terminals) do
+      term_num:close()
+    end
+  elseif vim.fn.has("FTerm") then
+    require('FTerm').close()
+  end
+end
+
 return M

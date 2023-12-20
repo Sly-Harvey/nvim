@@ -119,8 +119,8 @@ return {
                 vim.cmd("CMake select_target")
                 -- require('FTerm').close()
                 require("nvim-tree.api").tree.close()
+                util.close_all_terminals()
                 vim.cmd('startinsert')
-                util.sleep(0.05)
                 vim.cmd("CMake build_and_debug")
                 dap.repl.close()
               else
@@ -133,8 +133,8 @@ return {
         -- require("toggleterm").exec('exit')
         -- require('FTerm').close()
         require("nvim-tree.api").tree.close()
+        util.close_all_terminals()
         vim.cmd('startinsert')
-        util.sleep(0.05)
         dap.continue()
       end
     end)
