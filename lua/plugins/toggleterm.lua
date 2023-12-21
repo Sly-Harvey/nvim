@@ -17,6 +17,9 @@ return {
     --   WinBar = { link = "WinBar" },
     --   WinBarNC = { link = "WinBarNC" },
     -- },
+    on_open = function()
+      vim.cmd("startinsert!")
+    end,
     size = function(term)
       if term.direction == "horizontal" or term.direction == "float" then
         return 10
@@ -29,9 +32,8 @@ return {
       vim.opt.signcolumn = "no"
     end,
     start_in_insert = true,
-    open_mapping = [[<M-f>]],
     shading_factor = 2,
-    direction = direction,   -- Options: horizontal, float, vertical, tab
+    direction = direction, -- Options: horizontal, float, vertical, tab
     float_opts = { border = "rounded", width = 155, height = 35 },
   },
 }
