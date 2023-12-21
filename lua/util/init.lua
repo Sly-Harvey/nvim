@@ -103,7 +103,8 @@ function M.open_terminal()
 end
 
 function M.open_nvimtree()
-  require("nvim-tree.api").tree.toggle({ find_file = true, focus = false, path = vim.api.nvim_buf_get_name(0) })
+  local Path = require('plenary.path')
+  require("nvim-tree.api").tree.toggle({ find_file = true, focus = false, path = tostring(Path:new('{cwd}')) })
 end
 
 function M.toggle_nvimtree_and_toggleterm()

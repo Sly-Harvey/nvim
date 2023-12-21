@@ -98,14 +98,30 @@ return {
     vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<F17>', function()
       vim.cmd('stopinsert')
       dap.terminate()
-      util.toggle_nvimtree_and_toggleterm()
+      if vim.g.auto_open_nvimtree and vim.g.auto_open_toggleterm then
+        util.toggle_nvimtree_and_toggleterm()
+        vim.cmd('stopinsert')
+      elseif vim.g.auto_open_toggleterm and not vim.g.auto_open_nvimtree then
+        util.open_terminal()
+        vim.cmd('wincmd k')
+      elseif vim.g.auto_open_nvimtree and not vim.g.auto_open_toggleterm then
+        -- require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+      end
       --dap.repl.close()
     end)
 
     vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<S-F5>', function()
       vim.cmd('stopinsert')
       dap.terminate()
-      util.toggle_nvimtree_and_toggleterm()
+      if vim.g.auto_open_nvimtree and vim.g.auto_open_toggleterm then
+        util.toggle_nvimtree_and_toggleterm()
+        vim.cmd('stopinsert')
+      elseif vim.g.auto_open_toggleterm and not vim.g.auto_open_nvimtree then
+        util.open_terminal()
+        vim.cmd('wincmd k')
+      elseif vim.g.auto_open_nvimtree and not vim.g.auto_open_toggleterm then
+        -- require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+      end
       --dap.repl.close()
     end)
 
