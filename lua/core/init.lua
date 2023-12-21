@@ -140,44 +140,61 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
-if vim.fn.has("toggleterm") then
-  if vim.g.auto_open_toggleterm == true then
-    -- auto open toggleterm
-    autocmd({ "BufWinEnter" }, {
-      group = augroup("toggleterm_auto", { clear = true }),
-      once = true,
-      pattern = "*.*",
-      callback = function(data)
-        -- buffer is help
-        local is_help = vim.bo[data.buf].buftype == "help"
+-- auto open toggleterm
+autocmd({ "BufWinEnter" }, {
+  group = augroup("nvimtree_and_toggleterm", { clear = true }),
+  once = true,
+  pattern = "*.*",
+  callback = function(data)
+    -- buffer is help
+    local is_help = vim.bo[data.buf].buftype == "help"
 
-        -- buffer is a real file on the disk
-        local real_file = vim.fn.filereadable(data.file) == 1
+    -- buffer is a real file on the disk
+    local real_file = vim.fn.filereadable(data.file) == 1
 
-        -- buffer is a [No Name]
-        local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+    -- buffer is a [No Name]
+    local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 
-        if not real_file and not no_name then
-          return
-        elseif is_help then
-          return
-        end
+    if not real_file and not no_name then
+      return
+    elseif is_help then
+      return
+    end
 
-        if vim.fn.has("nvim-tree") and vim.g.auto_open_nvimtree == true and vim.fn.argc() <= 0 then
-          util.toggle_nvimtree_and_toggleterm()
-        else
-          require("toggleterm").toggle()
-          vim.cmd("stopinsert")
-          vim.cmd("wincmd k")
-          require("nvim-tree.api").tree.find_file({ open = true, focus = false })
-          -- vim.cmd("stopinsert")
-          -- vim.cmd("wincmd k")
-        end
-        -- vim.cmd("wincmd k")
+    local auto_nvimtree = vim.fn.has("nvim-tree") and vim.g.auto_open_nvimtree
+    local auto_toggleterm = vim.fn.has("toggleterm") and vim.g.auto_open_toggleterm
+
+    if vim.fn.argc() <= 0 then
+      if auto_nvimtree and auto_toggleterm then
+        util.toggle_nvimtree_and_toggleterm()
+      elseif auto_nvimtree and not auto_toggleterm then
+        require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+      elseif auto_toggleterm and not auto_nvimtree then
+        require("toggleterm").toggle()
+        vim.cmd("stopinsert")
+        vim.cmd("wincmd k")
+      else
+        require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+        require("nvim-tree.api").tree.close()
       end
-    })
+    elseif auto_nvimtree and auto_toggleterm then
+      require("toggleterm").toggle()
+      vim.cmd("stopinsert")
+      vim.cmd("wincmd k")
+      require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+      -- vim.cmd("stopinsert")
+      -- vim.cmd("wincmd k")
+    elseif auto_nvimtree and not auto_toggleterm then
+      require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+    elseif auto_toggleterm and not auto_nvimtree then
+      require("toggleterm").toggle()
+      vim.cmd("stopinsert")
+      vim.cmd("wincmd k")
+    else
+      return
+    end
   end
-end
+})
 
 autocmd("VimEnter", {
   desc = "Focus file buffer on startup",
@@ -202,24 +219,24 @@ autocmd("VimEnter", {
   end,
 })
 
-if vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == false then
-  -- auto open nvim-tree from alpha.nvim
-  autocmd("FileType", {
-    group = augroup("nvimtree_auto", { clear = true }),
-    once = true,
-    pattern = "alpha",
-    callback = function()
-      autocmd("BufReadPre", {
-        once = true,
-        pattern = "*.*",
-        callback = function()
-          if vim.fn.has("nvim-tree") then
-            require("nvim-tree.api").tree.close()
-            require("nvim-tree.api").tree.find_file({ open = true, focus = false })
-            -- vim.cmd("wincmd l")
-          end
-        end,
-      })
-    end,
-  })
-end
+-- if vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == false then
+--   -- auto open nvim-tree from alpha.nvim
+--   autocmd("FileType", {
+--     group = augroup("nvimtree_auto", { clear = true }),
+--     once = true,
+--     pattern = "alpha",
+--     callback = function()
+--       autocmd("BufReadPre", {
+--         once = true,
+--         pattern = "*.*",
+--         callback = function()
+--           if vim.fn.has("nvim-tree") then
+--             require("nvim-tree.api").tree.close()
+--             require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+--             -- vim.cmd("wincmd l")
+--           end
+--         end,
+--       })
+--     end,
+--   })
+-- end
