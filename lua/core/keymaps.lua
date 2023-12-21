@@ -47,13 +47,13 @@ if vim.g.auto_open_nvimtree == false or vim.g.auto_open_toggleterm == false then
   keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("toggleterm").toggle()<CR>', opts)
 elseif vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == true then
   keymap('n', '<c-n>', function ()
-    util.open_nvimtree_and_toggleterm()
+    util.toggle_nvimtree_and_toggleterm()
   end, opts)
   keymap('n', '<M-f>', function ()
-    util.open_nvimtree_and_toggleterm()
+    util.toggle_nvimtree_and_toggleterm()
   end, opts)
   keymap('t', '<M-f>', function ()
-    util.open_nvimtree_and_toggleterm()
+    util.toggle_nvimtree_and_toggleterm()
   end, opts)
 end
 

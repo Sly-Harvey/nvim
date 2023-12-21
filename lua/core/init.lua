@@ -163,24 +163,44 @@ if vim.fn.has("toggleterm") then
           return
         end
 
-        require("toggleterm").toggle()
-        -- vim.cmd("stopinsert")
-        -- vim.cmd("wincmd k")
-        if vim.fn.has("nvim-tree") then
-          if vim.g.auto_open_nvimtree == true then
-            require("nvim-tree.api").tree.close()
-            require("nvim-tree.api").tree.find_file({ open = true, focus = false })
-            -- vim.schedule(function()
-            --   vim.cmd "wincmd l"
-            --   vim.cmd("stopinsert")
-            -- end)
-          end
+        if vim.fn.has("nvim-tree") and vim.g.auto_open_nvimtree == true and vim.fn.argc() <= 0 then
+          util.toggle_nvimtree_and_toggleterm()
+        else
+          require("toggleterm").toggle()
+          vim.cmd("stopinsert")
+          require("nvim-tree.api").tree.close()
+          require("nvim-tree.api").tree.find_file({ open = true, focus = false })
+          -- vim.cmd("stopinsert")
+          -- vim.cmd("wincmd k")
         end
         -- vim.cmd("wincmd k")
       end
     })
   end
 end
+
+autocmd("VimEnter", {
+  desc = "Focus file buffer on startup",
+  group = augroup("alpha_autostart", { clear = true }),
+  callback = function()
+    local should_skip
+    if
+        vim.fn.argc() > 0
+    then
+      vim.cmd("wincmd l")
+      vim.cmd("wincmd k")
+      should_skip = true
+    else
+      for _, arg in pairs(vim.v.argv) do
+        if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
+          should_skip = true
+          break
+        end
+      end
+    end
+    if should_skip then return end
+  end,
+})
 
 if vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == false then
   -- auto open nvim-tree from alpha.nvim

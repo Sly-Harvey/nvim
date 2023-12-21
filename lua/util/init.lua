@@ -102,13 +102,13 @@ function M.open_terminal()
   end
 end
 
-function M.open_nvimtree_and_toggleterm()
+function M.toggle_nvimtree_and_toggleterm()
+  local Path = require('plenary.path')
   require("toggleterm").toggle()
   vim.cmd("stopinsert")
   vim.cmd("wincmd k")
   if vim.fn.has("nvim-tree") then
-    -- require("nvim-tree.api").tree.close()
-    require("nvim-tree.api").tree.toggle({ find_file = true, focus = false })
+    require("nvim-tree.api").tree.toggle({ find_file = true, focus = false, path = tostring(Path:new('{cwd}')) })
     vim.schedule(function()
       -- vim.cmd "wincmd l"
       -- vim.cmd("wincmd k")

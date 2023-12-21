@@ -95,15 +95,17 @@ return {
 
     --vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
     --vim.keymap.set("n", "<Leader>dx", function() dap.terminate() end)
-    vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<F17>', function()
+    vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<F17>', function()
       vim.cmd('stopinsert')
       dap.terminate()
+      util.toggle_nvimtree_and_toggleterm()
       --dap.repl.close()
     end)
 
-    vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<S-F5>', function()
+    vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<S-F5>', function()
       vim.cmd('stopinsert')
       dap.terminate()
+      util.toggle_nvimtree_and_toggleterm()
       --dap.repl.close()
     end)
 
