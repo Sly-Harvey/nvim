@@ -4,6 +4,9 @@ return {
   lazy = false,
   config = function()
     require("nvim-tree").setup({
+      -- on_attach = function()
+      --   require("nvim-tree.api").tree.find_file({ open = false, focus = false })
+      -- end,
       sync_root_with_cwd = false,
       respect_buf_cwd = true,
       update_focused_file = {
@@ -23,6 +26,18 @@ return {
         preserve_window_proportions = true,
         side = "left",
         signcolumn = "no",
+        float = {
+          enable = false,
+          quit_on_focus_loss = true,
+          open_win_config = {
+            relative = "editor",
+            border = "rounded",
+            width = 30,
+            height = 30,
+            row = 1,
+            col = 1,
+          },
+        },
       },
       renderer = {
         group_empty = true,

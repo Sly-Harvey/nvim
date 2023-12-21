@@ -2,8 +2,8 @@ local opt = vim.opt
 
 vim.g.colorscheme = "everforest" -- everforest, vscode, onedark, gruvbox catppuccin, rose-pine, etc.
 vim.g.everforest_transparent = false -- set transparency for everforest
-vim.g.auto_open_nvimtree = false
-vim.g.auto_open_toggleterm = false
+vim.g.auto_open_nvimtree = true
+vim.g.auto_open_toggleterm = true
 
 vim.g.mapleader = " "
 vim.g.max_file = { size = 1024 * 100, lines = 10000 } -- 100 KB
