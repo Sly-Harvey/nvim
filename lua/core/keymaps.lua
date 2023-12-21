@@ -54,10 +54,13 @@ keymap('n', '<leader>sl', "<CMD>Telescope software-licenses find<CR>", opts)
 keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
 
 -- ToggleTerm
--- Stop code execution and close toggleterm with Ctrl + c
--- if vim.g.auto_open_toggleterm == false then
---   vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
--- end
+if vim.fn.has("toggleterm") then
+  keymap('n', '<M-f>', '<CMD>lua require("toggleterm").toggle()<CR>', opts)
+  keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("toggleterm").toggle()<CR>', opts)
+  -- if vim.g.auto_open_toggleterm == false then
+  --   vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
+  -- end
+end
 
 -- Fterm
 -- keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)

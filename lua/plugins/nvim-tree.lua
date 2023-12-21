@@ -3,7 +3,6 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   lazy = false,
   config = function()
-    local util = require("util")
     require("nvim-tree").setup({
       sync_root_with_cwd = false,
       respect_buf_cwd = true,

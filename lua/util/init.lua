@@ -88,6 +88,20 @@ function M.run_release()
   end
 end
 
+function M.open_terminal()
+  if vim.fn.has("toggleterm") then
+    local lazy = require("toggleterm.lazy")
+    local ui = lazy.require("toggleterm.ui")
+
+    if not ui.find_open_windows() then
+      require("toggleterm").toggle()
+      print("terminal opened!")
+    else
+      print("terminal open already!")
+    end
+  end
+end
+
 function M.close_all_terminals()
   if vim.fn.has("toggleterm") then
     -- local lazy = require("toggleterm.lazy")
