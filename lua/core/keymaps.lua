@@ -1,4 +1,5 @@
 --vim.g.mapleader = " "
+local util = require "util"
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 local keymap = vim.keymap.set
@@ -39,17 +40,32 @@ end
 -- Open url
 keymap("n", "<leader>ou", "<esc>:URLOpenUnderCursor<cr>", opts)
 
--- Nvim-Tree
-keymap('n', '<c-n>', ':NvimTreeFindFileToggle<CR>', opts)
-
--- ToggleTerm
-if vim.fn.has("toggleterm") then
+-- Nvim-Tree and toggleterm
+if vim.g.auto_open_nvimtree == false or vim.g.auto_open_toggleterm == false then
+  keymap('n', '<c-n>', ':NvimTreeFindFileToggle<CR>', opts)
   keymap('n', '<M-f>', '<CMD>lua require("toggleterm").toggle()<CR>', opts)
   keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("toggleterm").toggle()<CR>', opts)
-  -- if vim.g.auto_open_toggleterm == false then
-  --   vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
-  -- end
+elseif vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == true then
+  keymap('n', '<c-n>', function ()
+    util.open_nvimtree_and_toggleterm()
+  end, opts)
+  keymap('n', '<M-f>', function ()
+    util.open_nvimtree_and_toggleterm()
+  end, opts)
+  keymap('t', '<M-f>', function ()
+    util.open_nvimtree_and_toggleterm()
+  end, opts)
 end
+
+-- ToggleTerm
+-- if vim.fn.has("toggleterm") then
+--   keymap('n', '<M-f>', '<CMD>lua require("toggleterm").toggle()<CR>', opts)
+--   keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("toggleterm").toggle()<CR>', opts)
+--
+--   if vim.g.auto_open_toggleterm == false then
+--     vim.keymap.set('t', '<C-c>', '<C-c><CMD>lua require("toggleterm").toggle()<CR>', opts)
+--   end
+-- end
 
 -- Fterm
 -- keymap('n', '<M-f>', '<CMD>lua require("FTerm").toggle()<CR>', opts)

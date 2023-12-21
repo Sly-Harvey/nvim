@@ -164,17 +164,16 @@ if vim.fn.has("toggleterm") then
         end
 
         require("toggleterm").toggle()
-        vim.cmd("stopinsert")
+        -- vim.cmd("stopinsert")
         -- vim.cmd("wincmd k")
         if vim.fn.has("nvim-tree") then
           if vim.g.auto_open_nvimtree == true then
             require("nvim-tree.api").tree.close()
             require("nvim-tree.api").tree.find_file({ open = true, focus = false })
-            vim.schedule(function()
-              -- vim.cmd "wincmd l"
-              -- vim.cmd("wincmd k")
-              vim.cmd("stopinsert")
-            end)
+            -- vim.schedule(function()
+            --   vim.cmd "wincmd l"
+            --   vim.cmd("stopinsert")
+            -- end)
           end
         end
         -- vim.cmd("wincmd k")
@@ -183,7 +182,7 @@ if vim.fn.has("toggleterm") then
   end
 end
 
-if vim.g.auto_open_nvimtree == true then
+if vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == false then
   -- auto open nvim-tree from alpha.nvim
   autocmd("FileType", {
     group = augroup("nvimtree_auto", { clear = true }),

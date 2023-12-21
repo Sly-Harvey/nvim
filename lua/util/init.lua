@@ -102,6 +102,21 @@ function M.open_terminal()
   end
 end
 
+function M.open_nvimtree_and_toggleterm()
+  require("toggleterm").toggle()
+  vim.cmd("stopinsert")
+  vim.cmd("wincmd k")
+  if vim.fn.has("nvim-tree") then
+    -- require("nvim-tree.api").tree.close()
+    require("nvim-tree.api").tree.toggle({ find_file = true, focus = false })
+    vim.schedule(function()
+      -- vim.cmd "wincmd l"
+      -- vim.cmd("wincmd k")
+      vim.cmd("stopinsert")
+    end)
+  end
+end
+
 function M.close_all_terminals()
   if vim.fn.has("toggleterm") then
     -- local lazy = require("toggleterm.lazy")
