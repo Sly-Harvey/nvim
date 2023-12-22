@@ -9,16 +9,18 @@ local augroup = vim.api.nvim_create_augroup
 augroup('bufcheck', { clear = true })
 augroup("terminal_settings", { clear = true })
 
-vim.cmd("colorscheme " .. vim.g.colorscheme)
-if vim.g.colorscheme == "everforest" and vim.g.everforest_transparent == true then
-  util.ColorMyPencils(vim.g.colorscheme)
+if vim.g.colorscheme then
+  vim.cmd("colorscheme " .. vim.g.colorscheme)
+  if vim.g.colorscheme == "everforest" and vim.g.everforest_transparent == true then
+    util.ColorMyPencils(vim.g.colorscheme)
+  end
 end
 
 if vim.g.everforest_transparent == true then
   autocmd({ "ColorScheme" }, {
     pattern = { "everforest" },
     callback = function()
-      util.ColorMyPencils(vim.g.colorscheme)
+      util.ColorMyPencils("everforest")
     end
   })
 end

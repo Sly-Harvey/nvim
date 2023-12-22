@@ -142,4 +142,10 @@ function M.close_all_terminals()
   end
 end
 
+if vim.fn.has("highlite") then
+  function M.dump_colorscheme(colorscheme)
+    require('highlite.export').nvim(colorscheme, { dir = vim.fn.stdpath("config") .. "/colorschemes", filename = colorscheme })
+  end
+end
+
 return M
