@@ -11,6 +11,12 @@ keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", { noremap = false, silent = true })
 --vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+-- Favorite colourschemes
+keymap('', '<A-1>', "<CMD>colorscheme everforest<CR>", opts)
+keymap('', '<A-2>', "<CMD>colorscheme kanagawa<CR>", opts)
+keymap('', '<A-3>', "<CMD>colorscheme kanagawa-dragon<CR>", opts)
+keymap('', '<A-4>', "<CMD>colorscheme vscode<CR>", opts)
+
 -- Lsp
 keymap("n", "<leader>gd", vim.lsp.buf.definition, opts)
 keymap("n", "<leader>gr", vim.lsp.buf.references, opts)
@@ -72,6 +78,7 @@ end
 -- keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- Telescope
+keymap("n", "<leader>e", "<CMD>Telescope file_browser select_buffer=true<CR>", opts)
 keymap('n', '<leader>cs', "<CMD>Telescope colorscheme<CR>", opts)
 keymap('n', '<leader>ff', "<CMD>Telescope find_files<CR>", opts)
 keymap('n', '<leader>fr', "<CMD>Telescope oldfiles<CR>", opts)
