@@ -181,10 +181,12 @@ autocmd({ "BufWinEnter" }, {
       require("toggleterm").toggle()
       vim.cmd("stopinsert")
       vim.cmd("wincmd k")
+      require("nvim-tree.api").tree.close()
       require("nvim-tree.api").tree.find_file({ open = true, focus = false })
       -- vim.cmd("stopinsert")
       -- vim.cmd("wincmd k")
     elseif auto_nvimtree and not auto_toggleterm then
+      require("nvim-tree.api").tree.close()
       require("nvim-tree.api").tree.find_file({ open = true, focus = false })
     elseif auto_toggleterm and not auto_nvimtree then
       require("toggleterm").toggle()
