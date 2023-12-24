@@ -6,6 +6,8 @@
 
 For a full list of plugins, visit https://dotfyle.com/Sly-Harvey/nvim
 
+For a better experience use semantic highlighting.
+
 <img src="images/everforest1.png" width=800>
 <img src="images/everforest2.png" width=800>
 
