@@ -12,10 +12,12 @@ keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", { noremap = false, silent = true })
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Favorite colourschemes
-keymap('', '<A-1>', "<CMD>colorscheme everforest<CR>", opts)
-keymap('', '<A-2>', "<CMD>colorscheme kanagawa<CR>", opts)
-keymap('', '<A-3>', "<CMD>colorscheme kanagawa-dragon<CR>", opts)
-keymap('', '<A-4>', "<CMD>colorscheme vscode<CR>", opts)
+keymap('', '<leader>1', "<CMD>colorscheme everforest<CR>", opts)
+keymap('', '<leader>2', "<CMD>colorscheme gruvbox-material<CR>", opts)
+keymap('', '<leader>3', "<CMD>colorscheme kanagawa<CR>", opts)
+keymap('', '<leader>4', "<CMD>colorscheme kanagawa-dragon<CR>", opts)
+keymap('', '<leader>5', "<CMD>colorscheme vscode<CR>", opts)
+keymap('', '<leader>6', "<CMD>colorscheme radium<CR>", opts)
 
 -- Lsp
 keymap("n", "<leader>gd", vim.lsp.buf.definition, opts)
