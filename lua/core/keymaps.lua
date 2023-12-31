@@ -1,21 +1,26 @@
 --vim.g.mapleader = " "
 local util = require "util"
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) -- Netrw is currently disabled
 
 local keymap = vim.keymap.set
 
 local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 
-keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", { noremap = false, silent = true })
 --vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
+keymap("n", "q:", "<nop>", opts)
+keymap("n", "<CR>", "<CR><Cmd>cclose<CR>", opts)
+keymap("n", "<leader>x", "<CMD>!chmod +x %<CR>", opts)
 
 -- Favorite colourschemes
-keymap('', '<A-1>', "<CMD>colorscheme everforest<CR>", opts)
-keymap('', '<A-2>', "<CMD>colorscheme kanagawa<CR>", opts)
-keymap('', '<A-3>', "<CMD>colorscheme kanagawa-dragon<CR>", opts)
-keymap('', '<A-4>', "<CMD>colorscheme vscode<CR>", opts)
+keymap('', '<leader>1', "<CMD>colorscheme everforest<CR>", opts)
+keymap('', '<leader>2', "<CMD>colorscheme gruvbox-material<CR>", opts)
+keymap('', '<leader>3', "<CMD>colorscheme kanagawa<CR>", opts)
+keymap('', '<leader>4', "<CMD>colorscheme kanagawa-dragon<CR>", opts)
+keymap('', '<leader>5', "<CMD>colorscheme vscode<CR>", opts)
+keymap('', '<leader>6', "<CMD>colorscheme catppuccin<CR>", opts)
+keymap('', '<leader>7', "<CMD>colorscheme radium<CR>", opts)
 
 -- Lsp
 keymap("n", "<leader>gd", vim.lsp.buf.definition, opts)
@@ -36,7 +41,7 @@ end, opts)
 if vim.fn.has("Hop") then
   keymap('', '<leader>f', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })<CR>", opts)
   keymap('', '<leader>F', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })<CR>", opts)
-  keymap('', '<leader>t', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }<CR>)", opts)
+  keymap('', '<leader>t', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<CR>", opts)
   keymap('', '<leader>T', "<CMD>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<CR>", opts)
   keymap('', '<leader>hw', "<CMD>lua require('hop').hint_words()<CR>", opts)
   keymap('', '<leader>hc', "<CMD>lua require('hop').hint_char2()<CR>", opts)
