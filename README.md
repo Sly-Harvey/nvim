@@ -6,7 +6,7 @@
 
 For a full list of plugins, visit https://dotfyle.com/Sly-Harvey/nvim
 
-**This config might be slow on windows because i mainly made it for linux and it's speedy on linux**
+**This config might be slow on windows because i mainly made it for linux and mac**
 
 <img src="images/everforest1.png" width=800>
 <img src="images/everforest2.png" width=800>
@@ -14,15 +14,16 @@ For a full list of plugins, visit https://dotfyle.com/Sly-Harvey/nvim
 **Before installing, A nerd font is required to see all the icons inside neovim.**
 **the nerd font that I recommend is [JetBrainsMono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip)**
 
+**To install on Linux/Mac, open terminal and then run the command below**
+```command
+rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
+```
+
 **To install on windows, open command prompt and then run the command below**
 ```bat
 rmdir /S /Q %homepath%\appdata\local\nvim-data & rmdir /S /Q %homepath%\appdata\local\nvim & git clone https://github.com/Sly-Harvey/nvim.git %homepath%\appdata\local\nvim
 ```
 
-**To install on Linux/Mac, open terminal and then run the command below**
-```command
-rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim && git clone https://github.com/Sly-Harvey/nvim.git ~/.config/nvim
-```
 ## After installation
 **Press Ctrl + b to build project.**
 
