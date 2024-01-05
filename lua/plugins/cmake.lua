@@ -29,9 +29,5 @@ return {
         dap_configuration = 'codelldb_vscode', -- DAP configuration to use if the projects `parameters_file` does not specify one.
         dap_open_command = function(...) require('dap').repl.open(...) end, -- Command to run after starting DAP session. You can set it to `false` if you don't want to open anything or `require('dapui').open` if you are using https://github.com/rcarriga/nvim-dap-ui
       })
-      vim.keymap.set('', '<leader>np', ':CMake create_project<cr>', {})
-      vim.keymap.set('', '<leader>cg', ':CMake configure<cr>', {})
-      vim.keymap.set('', '<leader>cbt', ':CMake select_build_type<cr>', {})
-      vim.keymap.set('', '<leader>cc', ':CMake clean<cr>', {})
     end
 }

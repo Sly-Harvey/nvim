@@ -1,5 +1,4 @@
 --vim.g.mapleader = " "
-local util = require "util"
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) -- Netrw is currently disabled
 
 local keymap = vim.keymap.set
@@ -22,20 +21,28 @@ keymap('', '<leader>5', "<CMD>colorscheme vscode<CR>", opts)
 keymap('', '<leader>6', "<CMD>colorscheme catppuccin<CR>", opts)
 keymap('', '<leader>7', "<CMD>colorscheme radium<CR>", opts)
 
--- Lsp
-keymap("n", "<leader>gd", vim.lsp.buf.definition, opts)
-keymap("n", "<leader>gr", vim.lsp.buf.references, opts)
-keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
-keymap("n", "K", vim.lsp.buf.hover, opts)
-keymap("n", "J", vim.lsp.buf.code_action, opts)
-keymap("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
-keymap("n", "<leader>of", vim.diagnostic.open_float, opts)
-keymap("n", "[d", vim.diagnostic.goto_next, opts)
-keymap("n", "]d", vim.diagnostic.goto_prev, opts)
-keymap("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-keymap("n", "<leader>fm", function()
-  vim.lsp.buf.format { async = true }
-end, opts)
+-- Copy/Paste file contents
+keymap("n", "<leader>fy", "<CMD> %y <CR>", opts)
+keymap("n", "<leader>fp", "<CMD> %d_<CR>Vp", opts)
+
+-- Lsp"
+keymap("n", "<leader>gd", "<CMD>lua vim.lsp.buf.definition<CR>", opts)
+keymap("n", "<leader>gr", "<CMD>lua vim.lsp.buf.references<CR>", opts)
+keymap("n", "<leader>lr", "<CMD>lua vim.lsp.buf.rename<CR>", opts)
+keymap("n", "K", "<CMD>lua vim.lsp.buf.hover<CR>", opts)
+keymap("n", "J", "<CMD>lua vim.lsp.buf.code_action<CR>", opts)
+keymap("n", "<leader>ws", "<CMD>lua vim.lsp.buf.workspace_symbol<CR>", opts)
+keymap("n", "<leader>of", "<CMD>lua vim.diagnostic.open_float<CR>", opts)
+keymap("n", "[d", "<CMD>lua vim.diagnostic.goto_next<CR>", opts)
+keymap("n", "]d", "<CMD>lua vim.diagnostic.goto_prev<CR>", opts)
+keymap("i", "<C-h>", "<CMD>lua vim.lsp.buf.signature_help<CR>", opts)
+keymap("n", "<leader>fm", "<CMD>lua vim.lsp.buf.format { async = true }<CR>", opts)
+
+-- Cmake
+keymap('', '<leader>np', ':CMake create_project<cr>', opts)
+keymap('', '<leader>cg', ':CMake configure<cr>', opts)
+keymap('', '<leader>cbt', ':CMake select_build_type<cr>', opts)
+keymap('', '<leader>cc', ':CMake clean<cr>', opts)
 
 -- Hop
 if vim.fn.has("Hop") then
@@ -57,15 +64,9 @@ if vim.g.auto_open_nvimtree == false or vim.g.auto_open_toggleterm == false then
   keymap('n', '<M-f>', '<CMD>lua require("toggleterm").toggle()<CR>', opts)
   keymap('t', '<M-f>', '<C-\\><C-n><CMD>lua require("toggleterm").toggle()<CR>', opts)
 elseif vim.g.auto_open_nvimtree == true and vim.g.auto_open_toggleterm == true then
-  keymap('n', '<c-n>', function ()
-    util.toggle_nvimtree_and_toggleterm()
-  end, opts)
-  keymap('n', '<M-f>', function ()
-    util.toggle_nvimtree_and_toggleterm()
-  end, opts)
-  keymap('t', '<M-f>', function ()
-    util.toggle_nvimtree_and_toggleterm()
-  end, opts)
+  keymap('n', '<c-n>', "<CMD>lua require('util').toggle_nvimtree_and_toggleterm()<CR>", opts)
+  keymap('n', '<M-f>', "<CMD>lua require('util').toggle_nvimtree_and_toggleterm()<CR>", opts)
+  keymap('t', '<M-f>', "<CMD>lua require('util').toggle_nvimtree_and_toggleterm()<CR>", opts)
 end
 
 -- ToggleTerm
@@ -93,9 +94,6 @@ keymap('n', '<leader>fw', "<CMD>Telescope grep_string<CR>", opts)
 keymap('n', '<leader>fb', "<CMD>Telescope buffers<CR>", opts)
 keymap('n', '<leader>sl', "<CMD>Telescope software-licenses find<CR>", opts)
 keymap('n', '<leader>fh', "<CMD>Telescope help_tags<CR>", opts)
-
--- Copy all
-keymap("n", "<C-c>a", "<cmd> %y+ <CR>", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
