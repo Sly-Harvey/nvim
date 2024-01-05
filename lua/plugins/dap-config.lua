@@ -44,13 +44,13 @@ return {
       dapui.open()
       dap.repl.close()
     end
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited["dapui_config"] = function()
-      dapui.close()
-      dap.repl.close()
-    end
+    -- dap.listeners.before.event_terminated["dapui_config"] = function()
+    --   dapui.close()
+    -- end
+    -- dap.listeners.before.event_exited["dapui_config"] = function()
+    --   dapui.close()
+    --   dap.repl.close()
+    -- end
 
     -- default rust debug code:
     --program = function()
@@ -97,7 +97,10 @@ return {
     --vim.keymap.set("n", "<Leader>dx", function() dap.terminate() end)
     vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<F17>', function()
       vim.cmd('stopinsert')
-      dap.terminate()
+      if dap.session() ~= nil then
+        dap.terminate()
+      end
+      dapui.close()
       if vim.g.auto_open_nvimtree and vim.g.auto_open_toggleterm then
         util.toggle_nvimtree_and_toggleterm()
         vim.cmd('stopinsert')
@@ -112,7 +115,10 @@ return {
 
     vim.keymap.set({ 'n', 'i', 'v', 't', 'x' }, '<S-F5>', function()
       vim.cmd('stopinsert')
-      dap.terminate()
+      if dap.session() ~= nil then
+        dap.terminate()
+      end
+      dapui.close()
       if vim.g.auto_open_nvimtree and vim.g.auto_open_toggleterm then
         util.toggle_nvimtree_and_toggleterm()
         vim.cmd('stopinsert')
