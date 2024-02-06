@@ -1,6 +1,6 @@
 return {
     "brenton-leighton/multiple-cursors.nvim",
-    commit = "a718ca429bf1ec269b2d938704216da4bceb27e8",
+    commit = "e51956b3fb5ddfa8d61cad424002f87bcb59026d",
     opts = {
         enable_split_paste = true,
         match_visible_only = false,
