@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- Press <leader>cs to change theme!
-vim.g.colorscheme = "everforest" -- everforest, vscode, kanagawa, catppuccin, gruvbox-material, radium, rose-pine, etc.
+vim.g.colorscheme = "catppuccin" -- everforest, vscode, kanagawa, catppuccin, gruvbox-material, radium, rose-pine, etc.
 
 vim.g.everforest_transparent = false -- set transparency for everforest
 vim.g.auto_open_nvimtree = false
