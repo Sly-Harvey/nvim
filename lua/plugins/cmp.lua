@@ -54,6 +54,27 @@ return {
     require("luasnip.loaders.from_vscode")
 
     cmp.setup({
+      experimental = {
+        ghost_text = true,
+      },
+      performance = {
+        debounce = 60;
+        fetchingTimeout = 200;
+        max_view_entries = 30;
+      };
+      window = {
+        completion = cmp.config.window.bordered({
+          border = 'rounded',
+          scrollbar = false,
+          winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None',
+        }),
+        documentation = cmp.config.window.bordered({
+          border = "rounded",
+        }),
+      },
+      formatting = {
+        fields = { "kind", "abbr", "menu" },
+      },
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),

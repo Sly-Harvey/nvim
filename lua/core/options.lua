@@ -23,6 +23,7 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
 opt.fileencoding = "utf-8"
+opt.encoding = "utf-8"
 opt.fillchars = { eob = " " }
 
 opt.ignorecase = true
@@ -49,8 +50,9 @@ opt.isfname:append("@-@")
 -- go to previous/next line with h,l,left arrow and right arrow
 --opt.whichwrap:append "<>[]hl"
 
-opt.lazyredraw = false
-opt.updatetime = 300
-opt.timeoutlen = 450
+opt.lazyredraw = true
+opt.updatetime = 50
+opt.completeopt = { "menuone", "noselect", "noinsert" }
+opt.timeoutlen = 15
 
 --opt.colorcolumn = "80"
