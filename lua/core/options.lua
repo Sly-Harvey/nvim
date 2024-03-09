@@ -53,6 +53,6 @@ opt.isfname:append("@-@")
 opt.lazyredraw = true
 opt.updatetime = 50
 opt.completeopt = { "menuone", "noselect", "noinsert" }
-opt.timeoutlen = 15
+opt.timeoutlen = 250
 
 --opt.colorcolumn = "80"
