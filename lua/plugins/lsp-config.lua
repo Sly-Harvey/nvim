@@ -98,7 +98,9 @@ return {
     -- Configure each language server
     mason_lspconfig.setup_handlers({
       -- Default handler for installed servers
-      default_setup,
+      function(server_name)
+        default_setup(server_name)
+      end,
 
       -- Dedicated handler for specific servers
       ["lua_ls"] = function()
