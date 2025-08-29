@@ -85,6 +85,7 @@ end
 
 -- Telescope
 keymap("n", "<leader>e", "<CMD>Telescope file_browser select_buffer=true<CR>", opts)
+keymap("n", "<leader>pr", "<CMD>Telescope projects<CR>", opts)
 keymap('n', '<leader>cs', "<CMD>Telescope colorscheme<CR>", opts)
 keymap('n', '<leader>ff', "<CMD>Telescope find_files<CR>", opts)
 keymap('n', '<leader>fr', "<CMD>Telescope oldfiles<CR>", opts)
