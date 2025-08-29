@@ -21,16 +21,26 @@ return {
                 pcall(vim.cmd.AlphaRedraw)
             end,
         })
-
         dashboard.section.buttons.val = {
-            dashboard.button("ff", "󰈞  Find file", ":Telescope find_files <CR>"),
-            dashboard.button("fn", "  New file", ":ene <BAR> startinsert <CR>"),
-            dashboard.button("fr", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
-            dashboard.button("fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
-            dashboard.button("cf", "  Configuration", ":e " .. vim.fn.stdpath("config") .. "<CR>"),
-            dashboard.button("pm", "  Plugin manager", ":Lazy<CR>"),
-            dashboard.button("qn", "󰅚  Quit Neovim", ":qa<CR>"),
+            dashboard.button("<leader> ff", "󰈞  Find file", ":Telescope find_files <CR>"),
+            dashboard.button("<leader> fn", "󰝒  New file", ":ene <BAR> startinsert <CR>"),
+            dashboard.button("<leader> fr", "󰋚  Recently used files", ":Telescope oldfiles <CR>"),
+            dashboard.button("<leader> pr", "󰉋  Projects", ":Telescope projects <CR>"),
+            dashboard.button("<leader> fg", "󰱼  Live grep", ":Telescope live_grep <CR>"),
+            dashboard.button("<leader> cf", "󰒓  Configuration", ":e " .. vim.fn.stdpath("config") .. "<CR>"),
+            dashboard.button("<leader> pm", "󰏖  Plugin manager", ":Lazy<CR>"),
+            dashboard.button("<leader> qn", "󰗼  Quit Neovim", ":qa<CR>"),
         }
+--        dashboard.section.buttons.val = {
+--            dashboard.button("<leader> ff", "󰈞  Find file", ":Telescope find_files <CR>"),
+--            dashboard.button("<leader> fn", "  New file", ":ene <BAR> startinsert <CR>"),
+--            dashboard.button("<leader> fr", "󰊄  Recently used files", ":Telescope oldfiles <CR>"),
+--            dashboard.button("<leader> pr", "󰉋  Projects", ":Telescope projects <CR>"),
+--            dashboard.button("<leader> fg", "󰈬  Live grep", ":Telescope live_grep <CR>"),
+--            dashboard.button("<leader> cf", "  Configuration", ":e " .. vim.fn.stdpath("config") .. "<CR>"),
+--            dashboard.button("<leader> pm", "  Plugin manager", ":Lazy<CR>"),
+--            dashboard.button("<leader> qn", "󰅚  Quit Neovim", ":qa<CR>"),
+--        }
 
         -- define startup ascii art here.
         --dashboard.section.header.val = {  }

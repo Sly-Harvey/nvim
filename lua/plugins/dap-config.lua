@@ -2,6 +2,7 @@ return {
   'rcarriga/nvim-dap-ui',
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
+    { "nvim-neotest/nvim-nio" },
     {
       'jay-babu/mason-nvim-dap.nvim',
       event = { "BufReadPost", "BufAdd", "BufNewFile" },

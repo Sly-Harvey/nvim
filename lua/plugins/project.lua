@@ -1,6 +1,6 @@
 return {
     "ahmedkhalf/project.nvim",
-    event = "BufReadPre",
+    event = "VimEnter",
     config = function()
         local project_nvim = require("project_nvim")
 
@@ -18,26 +18,28 @@ return {
             -- All the patterns used to detect root dir, when **"pattern"** is in
             -- detection_methods
             patterns = {
-                "*.sln",
+                "LICENSE",
+                "README.md",
+                "CMakeLists.txt",
+                "Makefile",
+                "meson.build",
+                "PKGBUILD",
+                "Cargo.toml",
+                "package.json",
+                "composer.json",
+                "lazy-lock.json",
+                "flake.nix",
+                "flake.lock",
+                "!>home",
+                "!=tmp",
                 ".git",
+                "*.sln",
                 ".vs",
                 ".vscode",
                 ".hg",
                 ".bzr",
                 ".svn",
                 "_darcs",
-                "!>home",
-                "!=tmp",
-                "Cargo.toml",
-                "CMakeLists.txt",
-                "Makefile",
-                "meson.build",
-                "PKGBUILD",
-                "LICENSE",
-                "README.md",
-                "package.json",
-                "composer.json",
-                "lazy-lock.json",
             },
 
             -- Table of lsp clients to ignore by name

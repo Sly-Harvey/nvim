@@ -3,11 +3,13 @@ local opt = vim.opt
 -- Press <leader>cs to change theme!
 vim.g.colorscheme = "catppuccin" -- everforest, vscode, kanagawa, catppuccin, gruvbox-material, radium, rose-pine, etc.
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.g.everforest_transparent = false -- set transparency for everforest
 vim.g.auto_open_nvimtree = false
 vim.g.auto_open_toggleterm = false
 
-vim.g.mapleader = " "
 vim.g.max_file = { size = 1024 * 100, lines = 10000 } -- 100 KB
 
 opt.guicursor = ""

@@ -13,16 +13,13 @@ if vim.g.colorscheme then
   vim.cmd("colorscheme " .. vim.g.colorscheme)
   if vim.g.colorscheme == "everforest" and vim.g.everforest_transparent == true then
     util.ColorMyPencils(vim.g.colorscheme)
+    autocmd({ "ColorScheme" }, {
+      pattern = { "everforest" },
+      callback = function()
+        util.ColorMyPencils("everforest")
+      end
+    })
   end
-end
-
-if vim.g.everforest_transparent == true then
-  autocmd({ "ColorScheme" }, {
-    pattern = { "everforest" },
-    callback = function()
-      util.ColorMyPencils("everforest")
-    end
-  })
 end
 
 autocmd("BufReadPre", {
@@ -36,12 +33,12 @@ autocmd("BufReadPre", {
 })
 
 -- disable semantic tokens
-autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
-});
+--autocmd("LspAttach", {
+--  callback = function(args)
+--    local client = vim.lsp.get_client_by_id(args.data.client_id)
+--    client.server_capabilities.semanticTokensProvider = nil
+--  end,
+--});
 
 -- auto update the highlight style on colorscheme change
 autocmd({ "ColorScheme" }, {
@@ -53,7 +50,7 @@ autocmd({ "ColorScheme" }, {
   end
 })
 
-autocmd("TermEnter", {
+autocmd({ "TermEnter", "TermOpen" }, {
   pattern = "*",
   group = "terminal_settings",
   desc = "Start terminal in insert mode",
