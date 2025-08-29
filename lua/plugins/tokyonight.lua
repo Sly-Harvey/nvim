@@ -1,6 +1,6 @@
 return {
   'folke/tokyonight.nvim',
-  event = "UIEnter",
+  lazy = true,
   config = function()
     require("tokyonight").setup({
       -- your configuration comes here

@@ -1,6 +1,6 @@
 return {
     "Iron-E/nvim-highlite",
-    event = "UIEnter",
+    lazy = true,
     config = function()
         local allow_list = { __index = function() return false end }
         -- require('highlite.export').nvim("kanagawa", {dir="~/nvim_colorschemes", filename="kanagawa"})

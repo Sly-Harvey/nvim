@@ -1,6 +1,6 @@
 return {
     "ahmedkhalf/project.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",
     config = function()
         local project_nvim = require("project_nvim")
 
@@ -36,6 +36,7 @@ return {
                 "*.sln",
                 ".vs",
                 ".vscode",
+                ".venv",
                 ".hg",
                 ".bzr",
                 ".svn",
