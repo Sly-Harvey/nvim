@@ -1,7 +1,6 @@
 return {
     'ellisonleao/gruvbox.nvim',
-    priority = 1000,
-    event = "UIEnter",
+    lazy = true,
     config = function()
         require("gruvbox").setup({
             terminal_colors = true, -- add neovim terminal colors

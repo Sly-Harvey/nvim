@@ -1,6 +1,6 @@
 return {
     "sontungexpt/url-open",
-    event = "UIEnter",
+    lazy = true,
     cmd = "URLOpenUnderCursor",
     config = function()
         local status_ok, url_open = pcall(require, "url-open")

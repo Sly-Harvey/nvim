@@ -10,8 +10,8 @@ return {
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
-          statusline = {},
-          winbar = {},
+          statusline = {"alpha","dashboard", "help"},
+          winbar = {"alpha","dashboard", "help"},
         },
         ignore_focus = {},
         always_divide_middle = true,
@@ -43,8 +43,8 @@ return {
       inactive_winbar = {},
       extensions = {
         "nvim-tree",
-        "toggleterm",
         "nvim-dap-ui",
+        "toggleterm",
         "quickfix",
       }
     })

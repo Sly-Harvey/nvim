@@ -4,7 +4,7 @@ if vim.g.auto_open_toggleterm == true then direction = "horizontal" end
 
 return {
   "akinsho/toggleterm.nvim",
-  event = { "BufReadPost", "UIEnter", "BufNewFile" },
+  lazy = true,
   cmd = { "ToggleTerm", "TermExec" },
   opts = {
     -- highlights = {
