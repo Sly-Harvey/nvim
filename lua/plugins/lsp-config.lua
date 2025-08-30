@@ -31,6 +31,8 @@ return {
         "lua_ls",
         "rust_analyzer",
         "clangd",
+        "powershell_es",
+        -- "yamlls",
         -- "pyright",
         -- "cmake",
         -- "nil_ls",
@@ -109,6 +111,8 @@ return {
           }
         }
       },
+      pylsp = {},
+      powershell_es = {},
       cmake = {},
       nil_ls = {},
       omnisharp = {},
