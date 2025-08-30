@@ -58,10 +58,10 @@ return {
         ghost_text = true,
       },
       performance = {
-        debounce = 60;
-        fetchingTimeout = 200;
-        max_view_entries = 30;
-      };
+        debounce = 60,
+        fetchingTimeout = 200,
+        max_view_entries = 30,
+      },
       window = {
         completion = cmp.config.window.bordered({
           border = 'rounded',
