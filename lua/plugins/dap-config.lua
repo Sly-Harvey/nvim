@@ -1,21 +1,59 @@
 return {
-  'rcarriga/nvim-dap-ui',
+  "mfussenegger/nvim-dap",
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    { "nvim-neotest/nvim-nio" },
+    "williamboman/mason.nvim",
     {
       'jay-babu/mason-nvim-dap.nvim',
-      event = { "BufReadPost", "BufAdd", "BufNewFile" },
+      -- event = { "BufReadPost", "BufAdd", "BufNewFile" },
       cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+      -- dependencies = {
+      --   { "folke/neodev.nvim", opts = {} },
+      -- },
+      config = function()
+        require("mason-nvim-dap").setup({
+          -- Automatically install debuggers
+          automatic_installation = true,
+          -- Ensure these debuggers are always installed
+          ensure_installed = { "codelldb", "debugpy", },
+          -- Automatic setup for all handlers
+          handlers = {},
+        })
+      end,
+    },
+    {
+      "rcarriga/nvim-dap-ui",
       dependencies = {
-        { "folke/neodev.nvim", opts = {} },
-        'williamboman/mason.nvim',
+        "nvim-neotest/nvim-nio",
+        "mfussenegger/nvim-dap",
       },
-      opts = {
-        automatic_setup = false,
-        ensure_installed = { "codelldb" },
-        handlers = {},
-      }
+    },
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      config = function()
+        require("nvim-dap-virtual-text").setup({
+          enabled = true,
+          enabled_commands = true,
+          highlight_changed_variables = true,
+          highlight_new_as_changed = false,
+          show_stop_reason = true,
+          commented = false,
+          only_first_definition = true,
+          all_references = false,
+          clear_on_continue = false,
+          display_callback = function(variable, buf, stackframe, node, options)
+            if options.virt_text_pos == 'inline' then
+              return ' = ' .. variable.value
+            else
+              return variable.name .. ' = ' .. variable.value
+            end
+          end,
+          virt_text_pos = vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol',
+          all_frames = false,
+          virt_lines = false,
+          virt_text_win_col = nil
+        })
+      end,
     },
     {
       'Weissle/persistent-breakpoints.nvim',
@@ -28,12 +66,6 @@ return {
     },
     { "dnlhc/glance.nvim", cmd = "Glance" },
     'tpope/vim-sleuth',
-    { "folke/neodev.nvim", opts = {} },
-    'mfussenegger/nvim-dap',
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      config = true
-    },
   },
 
   config = function()
@@ -74,7 +106,31 @@ return {
         showDisassembly = "never"
       },
     }
-
+    dap.adapters.python = function(cb, config)
+      if config.request == 'attach' then
+        ---@diagnostic disable-next-line: undefined-field
+        local port = (config.connect or config).port
+        ---@diagnostic disable-next-line: undefined-field
+        local host = (config.connect or config).host or '127.0.0.1'
+        cb({
+          type = 'server',
+          port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+          host = host,
+          options = {
+            source_filetype = 'python',
+          },
+        })
+      else
+        cb({
+          type = 'executable',
+          command = 'python',
+          args = { '-m', 'debugpy.adapter' },
+          options = {
+            source_filetype = 'python',
+          },
+        })
+      end
+    end
     dap.configurations.python = {
       {
         -- The first three options are required by nvim-dap
@@ -88,9 +144,21 @@ return {
           util.sleep(0.1)
           return "${file}";
         end, -- This configuration will launch the current file if used.
-        pythonPath = 'python',
+        pythonPath = function()
+          -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+          -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+          -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+          local cwd = vim.fn.getcwd()
+          if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+            return cwd .. '/venv/bin/python'
+          elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+            return cwd .. '/.venv/bin/python'
+          else
+            return 'python'
+          end
+        end,
         cwd = "${workspaceFolder}",
-        console = 'integratedTerminal'
+        console = 'integratedTerminal',
       },
     }
 

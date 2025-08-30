@@ -4,8 +4,11 @@ return {
   dependencies = {
     {
       "L3MON4D3/LuaSnip",
-      dependencies = "rafamadriz/friendly-snippets",
-      opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+      dependencies = {
+        "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets",
+      },
+      -- opts = { history = true, updateevents = "TextChanged,TextChangedI" },
     },
     {
       "windwp/nvim-autopairs",
@@ -42,7 +45,6 @@ return {
         })
       end
     },
-    'saadparwaiz1/cmp_luasnip',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
@@ -51,7 +53,7 @@ return {
   config = function()
     local cmp = require("cmp")
 
-    require("luasnip.loaders.from_vscode")
+    require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
       experimental = {
@@ -104,9 +106,9 @@ return {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
-        { name = "nvim_lua" },
         { name = 'path' },
         { name = "crates" },
+        { name = "nvim_lua" },
       }),
     })
   end,
