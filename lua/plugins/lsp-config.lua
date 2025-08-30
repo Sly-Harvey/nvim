@@ -31,11 +31,10 @@ return {
         "lua_ls",
         "rust_analyzer",
         "clangd",
-        "pyright",
-        "cmake",
-        "nil_ls",
-        "omnisharp",
-        "solargraph",
+        -- "pyright",
+        -- "cmake",
+        -- "nil_ls",
+        -- "omnisharp",
       },
     })
 
