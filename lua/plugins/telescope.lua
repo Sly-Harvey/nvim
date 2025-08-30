@@ -5,6 +5,7 @@ return {
     "nvim-lua/plenary.nvim",
     "chip/telescope-software-licenses.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
+    "nvim-telescope/telescope-ui-select.nvim"
   },
   config = function()
     local actions = require("telescope.actions")
@@ -257,6 +258,7 @@ return {
     })
     require('telescope').load_extension('projects')
     require("telescope").load_extension("file_browser")
+    require("telescope").load_extension("ui-select")
     require("telescope").load_extension("software-licenses")
   end,
 }
