@@ -22,11 +22,11 @@ return {
             end,
         })
         dashboard.section.buttons.val = {
-            dashboard.button("<leader> ff", "󰈞  Find file", ":Telescope find_files <CR>"),
-            dashboard.button("<leader> fn", "󰝒  New file", ":ene <BAR> startinsert <CR>"),
-            dashboard.button("<leader> fr", "󰋚  Recently used files", ":Telescope oldfiles <CR>"),
-            dashboard.button("<leader> pr", "󰉋  Projects", ":Telescope projects <CR>"),
-            dashboard.button("<leader> fg", "󰱼  Live grep", ":Telescope live_grep <CR>"),
+            dashboard.button("<leader> ff", "󰈞  Find file", "<CMD>Telescope find_files<CR>"),
+            dashboard.button("<leader> fn", "󰝒  New file", "<CMD>ene<BAR> startinsert <CR>"),
+            dashboard.button("<leader> fr", "󰋚  Recently used files", "<CMD>Telescope oldfiles<CR>"),
+            dashboard.button("<leader> pr", "󰉋  Projects", "<CMD>Telescope projects<CR>"),
+            dashboard.button("<leader> fg", "󰱼  Live grep", "<CMD>Telescope live_grep<CR>"),
             dashboard.button("<leader> cf", "󰒓  Configuration", ":e " .. vim.fn.stdpath("config") .. "<CR>"),
             dashboard.button("<leader> pm", "󰏖  Plugin manager", ":Lazy<CR>"),
             dashboard.button("<leader> qn", "󰗼  Quit Neovim", ":qa<CR>"),

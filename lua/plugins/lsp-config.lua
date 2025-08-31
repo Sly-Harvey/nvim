@@ -31,7 +31,7 @@ return {
         "lua_ls",
         "rust_analyzer",
         "clangd",
-        "powershell_es",
+        -- "powershell_es",
         -- "yamlls",
         -- "pyright",
         -- "cmake",
@@ -78,7 +78,7 @@ return {
               globals = { 'vim', 'use' }
             },
             workspace = {
-              checkThirdParty = false,
+              -- checkThirdParty = false,
               library = vim.api.nvim_get_runtime_file("", true),
             },
             telemetry = { enable = false },
